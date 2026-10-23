@@ -47,11 +47,11 @@
 ---
 
 ## 01:35 – 02:00 | Power BI Star Schema, SQL & Portfolio Value
-> *(Click to 'Power BI & SQL Hub' Tab)*
+> *(Reference the repository deliverables & documentation)*
 >
-> "Finally, under the **Power BI & SQL Hub**, the system provides recruiter deliverables:
-> 1. Exported dimensional Star-Schema CSVs ready for Power BI Desktop.
-> 2. Official DAX measures including our Transit Reliability Index formula.
-> 3. Production-grade SQL queries using CTEs, window functions like `DENSE_RANK()`, and moving averages.
+> "Finally, alongside our interactive dashboard, the project includes complete deliverables:
+> 1. Exported dimensional Star-Schema CSVs in `data/powerbi_export/` ready for Power BI Desktop.
+> 2. Official DAX measures in `powerbi/dax_measures.dax` including our Transit Reliability Index formula.
+> 3. Production-grade SQL queries in `sql/03_analytics_queries.sql` using CTEs, window functions like `DENSE_RANK()`, and moving averages.
 >
 > The repository includes automated Windows batch scripts (`setup.bat`, `run.bat`, `test.bat`) with 100% automated test coverage. Thank you!"

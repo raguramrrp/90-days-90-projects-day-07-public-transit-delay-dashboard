@@ -16,8 +16,8 @@ def create_header(draw, title, subtitle, width, height=90):
     draw.text((30, 20), title, fill="#FFFFFF", font_size=24)
     draw.text((30, 52), subtitle, fill="#94A3B8", font_size=13)
     # Status pill
-    draw.rounded_rectangle([(width - 240, 28), (width - 30, 62)], radius=8, fill="#065F46")
-    draw.text((width - 225, 36), "● LIVE ANALYTICS ENGINE", fill="#ECFDF5", font_size=12)
+    draw.rounded_rectangle([(width - 260, 28), (width - 30, 62)], radius=16, fill="#1E293B", outline="#334155")
+    draw.text((width - 245, 36), "📍 Network: 6 Lines • 18 Stations", fill="#E2E8F0", font_size=11)
 
 
 def generate_overview_screenshot():

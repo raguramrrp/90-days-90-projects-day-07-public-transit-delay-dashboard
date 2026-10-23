@@ -35,27 +35,25 @@ The left sidebar provides global controls that dynamically filter every chart, t
 ## 3. Dashboard Pages & Features
 
 ### Page 1: Overview
-- **Executive Metric Cards**: Instant high-level summary of Total Trips, On-Time Arrival %, Average Delay, Severe Delays (>15 mins), and the composite Transit Reliability Index (TRI).
+- **Fleet Reliability Scorecard**: Prominent Transit Reliability Index (TRI) hero card with tier badge and quick diagnostic summary.
 - **30-Day Fleet Delay Trend**: Combined bar and line chart displaying daily average delay against a 7-day moving average and SLA target line (3.0 minutes).
+- **Executive Metric Cards**: Network volume, on-time SLA rate, average delay, and severe incident counts.
 - **Arrival Performance Donut Chart**: Breakdown of all arrivals into Early, On-Time, Minor Delay, Moderate Delay, and Severe Delay.
 - **Primary Root Causes**: Horizontal bar chart highlighting total delay minutes lost to passenger crowding, signal faults, maintenance, or traffic congestion.
 
 ### Page 2: Route Analysis
-- **Route League Table**: Full performance matrix sorted by Reliability Index (TRI), showing on-time percentages and severe delay counts.
-- **Route TRI Comparison Chart**: Horizontal bar chart comparing all 6 transit routes.
-- **Route Deep-Dive Inspector**: Select any route from the dropdown to view its dedicated average delay, on-time SLA rate, and **Stop-by-Stop Delay Cascading Profile** to see where delays accumulate along the line.
+- **Route Deep-Dive Inspector**: Route selector with instant performance ribbon.
+- **Stop-by-Stop Delay Cascading Profile**: Spline area progression displaying cumulative delay accumulation across stations along the selected corridor.
+- **Route TRI Leaderboard**: Horizontal bar chart ranking routes by the Transit Reliability Index.
+- **Route Performance League Matrix**: Detailed performance table with on-time %, severe delay %, and TRI rankings.
 
 ### Page 3: Station Bottlenecks
-- **Geographic Station Delay Map**: Interactive Plotly bubble map showing station facilities. Bubble size corresponds to average delay, and color indicates fare zone.
+- **Fare Zone Performance Ribbon**: Comparative delay cards across Zone 1 (Core Urban), Zone 2 (Inner Ring), and Zone 3 (Perimeter/Airport).
+- **Geographic Station Delay Map**: Interactive Plotly bubble map showing station facilities with bubble size indicating average delay and color indicating fare zone.
 - **Top Bottleneck Stations Bar Chart**: Ranks the top delay hotspots across the network.
 - **Station SLA Compliance Table**: Granular metrics including transfer status, peak-hour delay vs off-peak delay, and incident counts.
 
 ### Page 4: Peak Hours & Congestion
-- **Comparative Metrics**: Displays Morning & Evening Peak delay versus Off-Peak delay, calculating the exact **Congestion Surge Ratio** (multiplier).
+- **Congestion Surge Metrics**: Morning & Evening Peak delay versus Off-Peak delay, and the **Congestion Surge Ratio** ($2.11\times$).
+- **Day of Week vs. Hour Heatmap Matrix**: Full 7x24 matrix highlighting exact days and hours with acute congestion hotspots.
 - **24-Hour Fleet Congestion Curve**: Line chart tracing hourly average delay with shaded yellow and red vertical bands representing Morning Peak (07-10h) and Evening Peak (16-20h).
-- **Day of Week vs. Hour Heatmap**: Visual 7x24 matrix highlighting exact days and hours with acute congestion hotspots.
-
-### Page 5: Power BI & SQL Hub
-- **Star-Schema Blueprint**: View the ER diagram connecting `dim_routes`, `dim_stations`, `dim_date`, `dim_time_period`, and `fact_transit_performance`.
-- **Official DAX Measures**: Review and copy all 13 DAX measures directly.
-- **Top 10 SQL Analytics Queries**: Inspect production SQL interview queries utilizing CTEs, Window functions (`RANK`, `DENSE_RANK`, `LAG`), and rolling aggregations.

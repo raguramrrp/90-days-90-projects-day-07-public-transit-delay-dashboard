@@ -48,7 +48,7 @@ The **Public Transit Delay Analytics Dashboard** resolves these challenges by pr
 - **🚏 Route Reliability League Table**: Ranked route performance matrix, on-time SLA rates, TRI score comparisons, and interactive stop-by-stop delay cascading profiles.
 - **📍 Station Bottleneck Identification**: Top 10 delay hotspots, geographic interactive bubble maps (bubble size = average delay, color = fare zone), and station SLA compliance metrics.
 - **⏰ Peak-Hour Surge & Congestion Dynamics**: 24-hour congestion curves with shaded Morning Peak (07-10h) and Evening Peak (16-20h) bands, Day-versus-Hour congestion heatmap matrix, and congestion surge multipliers.
-- **💼 Power BI & SQL Portfolio Hub**: Embedded dimensional Star Schema ER diagrams, 13 official DAX measures, and 10 production SQL analytics queries.
+- **💼 Power BI & SQL Deliverables**: Complete dimensional Star Schema CSV exports, 13 official DAX measures in `powerbi/`, and 10 production SQL analytics queries in `sql/`.
 - **🎛️ Dynamic Cross-Filtering**: Global sidebar controls for routes, time periods, service windows (Weekday vs Weekend), and custom date ranges.
 
 ---
