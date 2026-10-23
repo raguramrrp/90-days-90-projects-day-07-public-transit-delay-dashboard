@@ -1,0 +1,25 @@
+hour_of_day,time_period,is_peak_hour,peak_status
+0,Night / Early Morning,0,Off-Peak
+1,Night / Early Morning,0,Off-Peak
+2,Night / Early Morning,0,Off-Peak
+3,Night / Early Morning,0,Off-Peak
+4,Night / Early Morning,0,Off-Peak
+5,Night / Early Morning,0,Off-Peak
+6,Night / Early Morning,0,Off-Peak
+7,Morning Peak,1,Peak Hour
+8,Morning Peak,1,Peak Hour
+9,Morning Peak,1,Peak Hour
+10,Off-Peak (Midday),0,Off-Peak
+11,Off-Peak (Midday),0,Off-Peak
+12,Off-Peak (Midday),0,Off-Peak
+13,Off-Peak (Midday),0,Off-Peak
+14,Off-Peak (Midday),0,Off-Peak
+15,Off-Peak (Midday),0,Off-Peak
+16,Evening Peak,1,Peak Hour
+17,Evening Peak,1,Peak Hour
+18,Evening Peak,1,Peak Hour
+19,Evening Peak,1,Peak Hour
+20,Night / Early Morning,0,Off-Peak
+21,Night / Early Morning,0,Off-Peak
+22,Night / Early Morning,0,Off-Peak
+23,Night / Early Morning,0,Off-Peak

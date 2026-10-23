@@ -1,0 +1,83 @@
+{
+  "project": "Public Transit Delay Analytics Dashboard",
+  "version": "1.0",
+  "target": "Power BI Desktop / Service",
+  "data_model": "Star Schema",
+  "tables": [
+    {
+      "name": "dim_routes",
+      "type": "Dimension",
+      "primary_key": "route_id",
+      "relationships": [
+        {"to_table": "fact_transit_performance", "to_column": "route_id", "cardinality": "OneToMany"}
+      ]
+    },
+    {
+      "name": "dim_stations",
+      "type": "Dimension",
+      "primary_key": "station_id",
+      "relationships": [
+        {"to_table": "fact_transit_performance", "to_column": "station_id", "cardinality": "OneToMany"}
+      ]
+    },
+    {
+      "name": "dim_date",
+      "type": "Dimension",
+      "primary_key": "recorded_date",
+      "relationships": [
+        {"to_table": "fact_transit_performance", "to_column": "recorded_date", "cardinality": "OneToMany"}
+      ]
+    },
+    {
+      "name": "dim_time_period",
+      "type": "Dimension",
+      "primary_key": "hour_of_day",
+      "relationships": [
+        {"to_table": "fact_transit_performance", "to_column": "hour_of_day", "cardinality": "OneToMany"}
+      ]
+    },
+    {
+      "name": "fact_transit_performance",
+      "type": "Fact",
+      "primary_key": "record_id"
+    }
+  ],
+  "pages": [
+    {
+      "page_name": "Executive Overview",
+      "visuals": [
+        {"type": "Card", "measure": "[Total Trips]", "title": "Total Trips Operated"},
+        {"type": "Card", "measure": "[On-Time Percentage]", "title": "On-Time Arrival Rate (%)"},
+        {"type": "Card", "measure": "[Average Delay]", "title": "Fleet Avg Delay (Mins)"},
+        {"type": "Card", "measure": "[Transit Reliability Index]", "title": "Transit Reliability Index (TRI)"},
+        {"type": "Line Chart", "x_axis": "dim_date[recorded_date]", "values": ["[Average Delay]", "[Rolling 7-Day Delay]"], "title": "Fleet Delay Trend Over Time"},
+        {"type": "Donut Chart", "category": "fact_transit_performance[status]", "values": "[Total Observations]", "title": "Arrival Performance Breakdown"},
+        {"type": "Bar Chart", "category": "fact_transit_performance[delay_reason]", "values": "[Total Observations]", "title": "Delay Root Causes"}
+      ]
+    },
+    {
+      "page_name": "Route Analysis",
+      "visuals": [
+        {"type": "Table", "columns": ["dim_routes[route_short_name]", "dim_routes[route_type]", "[Total Observations]", "[Avg Delay]", "[On-Time Percentage]", "[Transit Reliability Index]"], "title": "Route Reliability Matrix"},
+        {"type": "Bar Chart", "category": "dim_routes[route_short_name]", "values": "[Transit Reliability Index]", "title": "Route Reliability Index Comparison"},
+        {"type": "Clustered Column Chart", "x_axis": "dim_routes[route_short_name]", "values": ["[On-Time Percentage]", "[Severe Delay Percentage]"], "title": "On-Time vs Severe Delays by Route"}
+      ]
+    },
+    {
+      "page_name": "Station Bottlenecks",
+      "visuals": [
+        {"type": "Map Visual", "latitude": "dim_stations[latitude]", "longitude": "dim_stations[longitude]", "size": "[Average Delay]", "color": "dim_stations[zone_id]", "title": "Geographic Station Bottlenecks"},
+        {"type": "Bar Chart (Horizontal)", "category": "dim_stations[station_name]", "values": "[Average Delay]", "sort": "Descending", "title": "Top 10 Delay Hotspots"},
+        {"type": "Scatter Plot", "x_axis": "[Total Observations]", "y_axis": "[Average Delay]", "category": "dim_stations[station_name]", "title": "Station Passenger Volume vs Delay Impact"}
+      ]
+    },
+    {
+      "page_name": "Peak Hours & Congestion",
+      "visuals": [
+        {"type": "Column Chart", "x_axis": "dim_time_period[hour_of_day]", "values": "[Average Delay]", "title": "Hourly Delay Surge Pattern"},
+        {"type": "Matrix / Heatmap", "rows": "dim_date[day_of_week]", "columns": "dim_time_period[hour_of_day]", "values": "[Average Delay]", "title": "Congestion Heatmap Matrix (Day vs Hour)"},
+        {"type": "Card", "measure": "[Congestion Surge Delta]", "title": "Peak vs Off-Peak Delay Delta (Mins)"}
+      ]
+    }
+  ]
+}

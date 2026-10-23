@@ -1,0 +1,7 @@
+route_id,route_short_name,route_long_name,route_type,agency_name,color_hex
+RT-RED,Red Line (Subway),Downtown Central <-> Tech Hub Innovation Park,Subway / Rail,Metropolitan Transit Authority,#DC2626
+RT-BLUE,Blue Line (Subway),West Harbor <-> Airport Terminals Express,Subway / Rail,Metropolitan Transit Authority,#2563EB
+RT-GREEN,Green Line (Light Rail),Riverfront Plaza <-> University Heights,Light Rail,Metropolitan Transit Authority,#16A34A
+RT-ORANGE,Orange Line (BRT),South Gateway <-> North Suburban Mall,Bus Rapid Transit,Metropolitan Transit Authority,#EA580C
+RT-BUS-101,Bus 101 (Civic Express),Civic Center <-> Eastgate Terminal,Express Bus,Metropolitan Transit Authority,#9333EA
+RT-CR-305,Commuter Rail 305,Union Station <-> Mountain Foothills Regional,Commuter Rail,Metropolitan Transit Authority,#0D9488

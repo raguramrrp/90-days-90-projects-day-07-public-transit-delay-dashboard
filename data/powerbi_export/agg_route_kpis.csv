@@ -1,0 +1,7 @@
+route_id,route_short_name,route_long_name,route_type,color_hex,total_observations,avg_delay_minutes,max_delay_minutes,on_time_count,minor_delay_count,moderate_delay_count,severe_delay_count,on_time_percentage,severe_delay_percentage,reliability_score
+RT-BLUE,Blue Line (Subway),West Harbor <-> Airport Terminals Express,Subway / Rail,#2563EB,2094,12.4,57.38,195,213,1060,626,9.31,29.89,8.9
+RT-BUS-101,Bus 101 (Civic Express),Civic Center <-> Eastgate Terminal,Express Bus,#9333EA,1516,9.98,54.0,29,342,904,241,1.91,15.9,11.6
+RT-CR-305,Commuter Rail 305,Union Station <-> Mountain Foothills Regional,Commuter Rail,#0D9488,2045,10.52,55.55,167,313,1156,409,8.17,20.0,13.9
+RT-GREEN,Green Line (Light Rail),Riverfront Plaza <-> University Heights,Light Rail,#16A34A,1660,9.3,53.3,237,286,872,265,14.28,15.96,21.2
+RT-ORANGE,Orange Line (BRT),South Gateway <-> North Suburban Mall,Bus Rapid Transit,#EA580C,1870,9.82,57.83,247,307,937,379,13.21,20.27,18.4
+RT-RED,Red Line (Subway),Downtown Central <-> Tech Hub Innovation Park,Subway / Rail,#DC2626,2190,9.46,53.5,198,493,1104,395,9.04,18.04,16.7

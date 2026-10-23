@@ -1,0 +1,19 @@
+station_id,station_code,station_name,latitude,longitude,zone_id,is_transfer_station
+ST-01,DWTN,Downtown Central,40.7128,-74.006,Zone 1,1
+ST-02,FIND,Financial District,40.7075,-74.009,Zone 1,0
+ST-03,UNON,Union Station Hub,40.718,-73.998,Zone 1,1
+ST-04,HOSP,City Hospital & Medical Ctr,40.725,-73.99,Zone 1,0
+ST-05,UNIV,University Heights Campus,40.735,-73.985,Zone 2,1
+ST-06,TECH,Tech Hub Innovation Park,40.748,-73.975,Zone 2,0
+ST-07,WHRB,West Harbor Terminal,40.71,-74.02,Zone 1,0
+ST-08,CIVC,Civic Center & City Hall,40.715,-74.005,Zone 1,1
+ST-09,MDWN,Midtown Interchange,40.73,-73.995,Zone 1,1
+ST-10,RIVR,Riverfront Promenade,40.74,-74.01,Zone 2,0
+ST-11,ARTS,Arts & Museum District,40.738,-73.992,Zone 2,0
+ST-12,SGAT,South Gateway Terminal,40.695,-74.0,Zone 2,0
+ST-13,EGAT,Eastgate Transfer Terminal,40.72,-73.965,Zone 2,1
+ST-14,SMKT,South Market Square,40.7,-73.98,Zone 2,0
+ST-15,APR1,International Airport Term 1,40.645,-73.785,Zone 3,1
+ST-16,APR2,International Airport Term 2,40.64,-73.778,Zone 3,0
+ST-17,NMAL,North Suburban Mall,40.78,-73.95,Zone 3,0
+ST-18,MTNF,Mountain Foothills Regional,40.81,-73.92,Zone 3,0
