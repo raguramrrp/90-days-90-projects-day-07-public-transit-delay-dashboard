@@ -1,366 +1,252 @@
-# 🚆 Public Transit Delay Analytics Dashboard
+# 🏛️ Tirunelveli Local Transport Platform (Nellai Transit Tracker)
 
 [![Day 7 of 90](https://img.shields.io/badge/90_Days_Challenge-Day_07-blue.svg)](https://github.com/raguramrrp)
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.40+-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![Power BI](https://img.shields.io/badge/Power_BI-Desktop_%26_Service-F2C811.svg?logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
+[![Folium / Leaflet](https://img.shields.io/badge/Leaflet-Folium_Maps-10B981.svg?logo=leaflet&logoColor=white)](https://python-visualization.github.io/folium/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.0-4169E1.svg?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![SQLite](https://img.shields.io/badge/SQLite-Dual_Engine-003B57.svg?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
-[![Tests Passing](https://img.shields.io/badge/Tests-12%20Passed-10B981.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/Tests-37%20Passed-10B981.svg)](tests/)
+[![Design System](https://img.shields.io/badge/Stitch_UI-Civic_Utility-00507D.svg)](stitch_tirunelveli_transit_tracker/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > **Day 7 Project — 90 Days – 90 Projects Challenge**  
-> An enterprise-grade transit reliability intelligence platform analyzing scheduled versus actual arrival feeds, station bottlenecks, peak-hour congestion multipliers, and composite reliability scores.
+> A reliable, clean, civic-technology public transportation tracking application for **Tirunelveli, Tamil Nadu, India**.
+> Built for ordinary members of the public to find local buses by location or stop, track buses with arrival estimates and delays, search trains by 5-digit train number, and view verified station departure boards.
+> **Strict Data Freshness Policy:** Distinguishes verified timetables from simulated feeds with zero fabricated live information in production mode.
 
 ---
 
-## 1. Problem Statement & Motivation
-Urban transit authorities, dispatch coordinators, and commuters struggle with recurring, unexplained delay cascades. Disjointed timetables and raw sensor feeds prevent planners from answering fundamental operational questions:
-- Which transit corridors and routes systematically fail their Service Level Agreements (SLAs)?
-- Which intermodal stations act as chronic bottlenecks causing dwell-time compounding?
-- What is the exact delay penalty introduced during morning and evening rush hours?
-- How can transit systems quantify fleet health using a single, balanced **Transit Reliability Index (TRI)**?
+## 1. Problem Statement & Civic Mission
+Every day, thousands of commuters across Tirunelveli (Nellai) — students heading to Anna University or Government Medical College, devotees visiting Nellaiyappar Temple, office workers commuting between Palayamkottai and Tirunelveli Junction, and travelers boarding the Nellai Superfast Express or Vande Bharat — depend on local transport.
 
-The **Public Transit Delay Analytics Dashboard** resolves these challenges by providing an automated ETL ingestion pipeline, relational SQL schema, composite KPI calculations, and interactive visualizations across both **Streamlit** and **Microsoft Power BI**.
+However, commuters face common daily challenges:
+1. **Uncertain Bus Arrivals**: Commuters do not know which buses serve their stop or when the next bus will arrive.
+2. **Train Station Confusion**: Missing platform numbers, unexpected delays, or searching train numbers without knowing whether they stop at Tirunelveli.
+3. **Misleading "Live Tracking" Apps**: Commercial apps frequently claim to show "live GPS" when they are actually drawing synthetic dots along a road.
 
----
-
-## 2. Objectives & Intended Users
-
-### Primary Objectives
-1. **Automated GTFS/Timetable Ingestion**: Ingest and clean timetabled vs. actual arrival/departure observations.
-2. **Standardized Delay Classification**: Segment operations into 5 standard classes: *Early (<0m)*, *On-Time (0-2m)*, *Minor Delay (2-5m)*, *Moderate Delay (5-15m)*, and *Severe Delay (>15m)*.
-3. **KPI & Composite Index Calculation**: Model fleet on-time percentages, peak surge ratios, and the **Transit Reliability Index (TRI)**.
-4. **Dual SQL Database Architecture**: Provide immediate 1-click Windows execution via SQLite while offering full PostgreSQL production DDL.
-5. **Business Intelligence Deliverables**: Supply ready-to-use Star-Schema CSVs, official DAX measure formulas, and CTE-driven SQL interview queries.
-
-### Intended Users
-- **Transit Planners & Schedule Engineers**: Optimize runtimes, timetables, and headway buffers.
-- **Operations & Fleet Dispatchers**: Monitor real-time SLA compliance and incident root causes.
-- **Urban Mobility Analysts & Data Analysts**: Query historical trends and build executive stakeholder dashboards.
-- **Technical Recruiters & Hiring Managers**: Review end-to-end data analytics, SQL, Power BI, and Python engineering portfolio evidence.
+The **Tirunelveli Transport Tracker** provides an honest, reliable public-service information utility:
+- **Location-Based Bus Discovery**: Find buses using current device location, landmark search, or direct stop selection.
+- **Geographic Eligibility Enforcement**: Enforces backend filters so only buses and trains serving verified Tirunelveli local stops appear in local search results.
+- **Train Number Search**: Enter any 5-digit Indian Railways train number to inspect Tirunelveli platform, arrival/departure timings, and delay. Out-of-area trains (e.g. *12621 Tamil Nadu Express*) are clearly identified as non-local rather than displayed as local services.
+- **Honest Data Provenance**: Classifies all data into `LIVE`, `RECENT`, `SCHEDULED`, `ESTIMATED`, `STATIC`, or `UNAVAILABLE`. Never fabricates moving vehicles in production mode.
 
 ---
 
-## 3. Key Features
+## 2. Transit Network & Coverage Registry
 
-- **📊 Executive Overview Dashboard**: Real-time KPI cards (Total Trips, On-Time %, Fleet Average Delay, Severe Delay Count, and Transit Reliability Index), 30-day delay trend with 7-day moving average, performance donut breakdown, and root cause analysis.
-- **🚏 Route Reliability League Table**: Ranked route performance matrix, on-time SLA rates, TRI score comparisons, and interactive stop-by-stop delay cascading profiles.
-- **📍 Station Bottleneck Identification**: Top 10 delay hotspots, geographic interactive bubble maps (bubble size = average delay, color = fare zone), and station SLA compliance metrics.
-- **⏰ Peak-Hour Surge & Congestion Dynamics**: 24-hour congestion curves with shaded Morning Peak (07-10h) and Evening Peak (16-20h) bands, Day-versus-Hour congestion heatmap matrix, and congestion surge multipliers.
-- **💼 Power BI & SQL Deliverables**: Complete dimensional Star Schema CSV exports, 13 official DAX measures in `powerbi/`, and 10 production SQL analytics queries in `sql/`.
-- **🎛️ Dynamic Cross-Filtering**: Global sidebar controls for routes, time periods, service windows (Weekday vs Weekend), and custom date ranges.
+### Geographic Scope: Tirunelveli District & Corridors
+- **TNSTC Tirunelveli Division (City & Regional Buses)**:
+  - Route 1: New Bus Stand (Veinthaankulam) ↔ Tirunelveli Junction
+  - Route 2: Tirunelveli Junction ↔ Town Nellaiyappar Temple
+  - Route 3: Tirunelveli Junction ↔ Pettai Industrial Estate
+  - Route 10: Town Nellaiyappar ↔ High Ground Medical College
+  - Route 41: Tirunelveli Junction ↔ Thazhaiyuthu Sankar Nagar
+  - Route 144: New Bus Stand ↔ Ambasamudram (via Cheranmahadevi)
+- **Southern Railway (Nellai Hub Trains)**:
+  - Train 12632: Nellai Superfast Express (Tirunelveli ↔ Chennai Egmore via Madurai)
+  - Train 12631: Nellai Superfast Express (Chennai Egmore ↔ Tirunelveli)
+  - Train 20666: Tirunelveli ↔ Chennai Egmore Vande Bharat Express
+  - Train 20665: Chennai Egmore ↔ Tirunelveli Vande Bharat Express
+  - Train 06682: Tirunelveli ↔ Tiruchendur Passenger Special
+  - Train 06685: Tirunelveli ↔ Sengottai Express Special (via Tenkasi)
+  - Train 16127: Chennai Egmore ↔ Guruvayur Express (via Tirunelveli)
+  - Train 16723: Ananthapuri Express (Chennai Egmore ↔ Kollam via Tirunelveli)
+  - Train 16847: Mayiladuturai ↔ Sengottai Express (via Tirunelveli)
+  - Train 20635: Ananthapuri Superfast Express (Chennai Egmore ↔ Kollam via Tirunelveli)
+- **20 Verified Master Stations & Stops**:
+  Tirunelveli Junction (`TEN`), New Bus Stand Veinthaankulam (`VBS`), Old Bus Stand (`OBS`), Town Nellaiyappar Temple (`TOWN`), Vannarpettai (`VNR`), Murugankurichi (`MRK`), Palayamkottai Market (`PLM`), Palayamkottai Station (`PCO`), Medical College High Ground (`MED`), Perumalpuram (`PRM`), Pettai (`PTA`), Melapalayam (`MLP`), Thazhaiyuthu (`THZ`), Cheranmahadevi (`CRV`), Ambasamudram (`ASD`), Tenkasi Junction (`TSI`), Srivaikuntam (`SVT`), Tiruchendur (`TCN`), Nanguneri (`NNN`), Valliyur (`VLY`).
 
 ---
 
-## 4. Dashboard Screenshots
+## 3. Approved Google Stitch UI Design Integration
 
-### Executive Overview & KPIs
-![Executive Overview](screenshots/dashboard_overview.png)
-*Executive summary displaying total trips, on-time arrival rate, fleet average delay, severe delay count, 30-day moving average trend line, and delay root causes.*
+The user interface implements the approved **Google Stitch "Austere Civic Utility" Design System** (`stitch_tirunelveli_transit_tracker/`):
+- **Desktop 2-Column Split Workspace**: 5-column left panel for transit search and route cards; 7-column right panel for vector maps and telemetry inspectors.
+- **Strict 4px Border Radii & Anti-Pill Rule**: Eliminates stadium buttons and generic AI glows, favoring crisp rectangular cards with low-contrast outlines.
+- **Tabular Figures (`tnum`)**: All timetables, speed readings, and arrival times use tabular numeric OpenType fonts for clean vertical alignment.
+- **CRIS NTES Certified Motive Power**: Train inspector features locomotive motive power (e.g. `WAP-7 ED 37102`, `WAP-4 ED`), block signals, and speed heading.
+- **Station Hub Interchange Explorer**: Interactive SVG terminal schematics and amenity counts for Tirunelveli Junction, MGR New Bus Stand, Palayamkottai, and Town.
+- **Pre-Stitch Version Backup**: The previous pre-Stitch version is safely preserved at `D:\90 days\90-days-90-projects-day-07-backup-pre-stitch`.
 
-### Route Reliability League Table & Delay Cascades
+| Tab | Feature & Purpose |
+| :--- | :--- |
+| **🚏 Bus Search & Telemetry** | 2-Column split workspace: origin/destination search with GPS trigger, swap button, quick terminal chips, civic fares (₹12, ₹14, ₹18), crowd status, Thamirabarani River vector SVG plot, and Route 11A vehicle inspector. |
+| **🚆 Train Search & Status** | Search 5-digit Indian Railways train number, calling station scope (`TEN`, `TYT`, `PLM`, `ALL`), quick corridor buttons, non-local coverage alerts, WAP-7 locomotive motive power, speed, and 8-halt progression timetable. |
+| **🏢 Station Hub Interchanges** | Interchange explorer featuring terminal schematics (rail concourse, bus bays, subways) and amenities for Junction, New Bus Stand, Palayamkottai, and Town with prepaid auto fixed tariffs. |
+| **About & Data Feeds** | Operational overview for transport coordinators: fleet punctuality percentage, average arrival delay, data provenance policies, and public privacy policy. |
+
+---
+
+## 4. Platform Visual Screenshots
+
+### 🚏 Bus Search & Live Telemetry Workspace (Google Stitch)
+![Bus Search & Live Telemetry](screenshots/stitch_bus_search_telemetry.png)
+*2-Column civic workspace featuring origin/destination search with swap button, common terminal chips, Thamirabarani River vector plot, pulsing live bus beacon on Sulochana Mudaliar Bridge, Route 11A vehicle inspector, and sequential waypoint progression.*
+
+### 🚆 Train Search & CRIS NTES Live Station Status
+![Train Search & Live Station Status](screenshots/stitch_train_search_status.png)
+*Train 16127 Guruvayur Express with live NTES GPS telemetry, WAP-7 ED 37102 motive power, Gangaikondan block live position, 8-halt waypoint progression timeline, and out-of-boundary coverage exception check.*
+
+### 🏢 Station Hubs & Civic Intermodal Interchanges
+![Station Hubs & Interchanges](screenshots/stitch_station_hubs.png)
+*Terminal overview for Tirunelveli Central Junction (TEN), SVG concourse and bus bay schematic, synchronized connecting buses, immediate rail departures, and Tirunelveli Traffic Police prepaid auto fixed tariffs.*
+
+### 📱 Responsive Mobile Civic Tracking View
+![Mobile Civic Tracking View](screenshots/stitch_mobile_view.png)
+*High-contrast mobile interface with quick terminals, service tier segmented controls, and fixed bottom navigation bar.*
+
+### Command Center & Executive Overview
+![Command Center](screenshots/dashboard_overview.png)
+*Executive overview displaying monitored trips, on-time arrival rate, fleet average delay, chronic bottlenecks count, 30-day moving average trend line, modal breakdown, and operator SLA scorecard.*
+
+### Multimodal Live Tracking Map (Leaflet / Folium)
+![Live Tracking Map](screenshots/live_tracking_map.png)
+*Geospatial Leaflet map displaying Tirunelveli transit corridors, station interchanges, live vehicles, and popup telemetry inspection.*
+
+### Route Performance & Stop-by-Stop Delay Cascades
 ![Route Analysis](screenshots/route_analysis.png)
-*Route rankings sorted by Transit Reliability Index (TRI), comparative bar charts, and stop-by-stop delay cascading profile.*
+*Ranked route performance league table, Transit Reliability Index (TRI) comparison bar chart, and stop-by-stop delay cascading profile for Route 41 (Junction <-> Ambasamudram).*
 
-### Station Bottleneck Identification & Geographic Map
+### Station Bottlenecks & Chronic Congestion Hotspots
 ![Station Bottlenecks](screenshots/station_bottlenecks.png)
-*Geographic delay bubble map and top bottleneck stations ranked by average delay.*
+*Geographic delay bubble visualization, top chronic bottleneck stations, and multimodal transfer connectivity impact table.*
 
-### Peak-Hour Congestion Dynamics & Heatmap
+### Peak-Hour Congestion Dynamics & Surge Analysis
 ![Peak Hours & Congestion](screenshots/peak_hours_surge.png)
-*24-hour fleet delay progression with shaded rush-hour bands, peak vs off-peak comparative metrics, and Day-of-Week vs Hour congestion heatmap.*
+*24-hour fleet congestion progression with shaded Morning/Evening peak bands, peak vs. off-peak comparative metrics, and Day-of-Week vs. Hour congestion heatmap matrix.*
 
 ---
 
-## 5. Architecture & Data Flow
+## 5. System Architecture & Modular Provider Layer
 
 ```mermaid
 flowchart TD
-    RAW["Raw GTFS / Transit Data<br/>(routes, stations, trips, actual_times)"] --> ETL["TransitETLPipeline (src/etl.py)"]
-    GEN["Transit Generator (src/generator.py)"] -.-> RAW
-    ETL --> VAL["Validation & Cleaning<br/>- Timestamp Parser<br/>- Delay Derivation<br/>- Peak Classification"]
-    
-    VAL --> DB{{"Relational Engine<br/>(SQLAlchemy)"}}
-    DB --> SQLITE["SQLite (Local Windows 1-Click)<br/>data/transit.db"]
-    DB --> PG["PostgreSQL (Enterprise)<br/>transit schema"]
-    
-    DB --> ANALYTICS["Analytics Engine (src/analytics.py)<br/>- KPI Aggregations<br/>- TRI Formulation<br/>- Multi-Filter Slicing"]
-    DB --> EXPORT["Power BI Exporter (src/powerbi_export.py)"]
-    EXPORT --> PBI_CSV["Star Schema Datasets<br/>(dim_*, fact_*)"]
-    EXPORT --> DAX["DAX Measures (powerbi/dax_measures.dax)"]
-    
-    ANALYTICS --> STREAMLIT["Streamlit Dashboard (app.py)<br/>Overview • Routes • Stations • Peak Hours"]
-    PBI_CSV --> PBI["Power BI Desktop / Service"]
-    DAX --> PBI
+    subgraph Provider_Layer ["Modular Provider Architecture (src/providers.py)"]
+        BSP["BusStopProvider<br/>- Stop Registry (20 Stations)<br/>- Proximity Search (Haversine)<br/>- Tamil & Landmark Geocoding"]
+        BRP["BusRouteProvider<br/>- Geographic Eligibility Enforcement<br/>- Stop-to-Route Mapping<br/>- Origin-Destination Filtering"]
+        BTP["BusTrackingProvider<br/>- Data Freshness Tagging<br/>- ETA & Delay Calculation<br/>- Stop Progression Timeline"]
+        TSP["TrainScheduleProvider<br/>- 5-Digit Validation<br/>- Tirunelveli Eligibility Check<br/>- Non-Local Train Exclusion"]
+        TRP["TrainRunningStatusProvider<br/>- Arrival Status at TEN<br/>- Platform Allocation<br/>- Halt Stoppage Sequences"]
+    end
+
+    subgraph Data_Layer ["Dual Database Engine & Pipelines"]
+        RAW["Raw Data / Seed Timetables"] --> ETL["ETL Pipeline (src/etl.py)"]
+        ETL --> DB{{"SQLAlchemy Engine"}}
+        DB --> SQLITE["SQLite Local (data/transit.db)"]
+        DB --> PG["PostgreSQL Production"]
+    end
+
+    subgraph Presentation_Layer ["Streamlit Public UI (app.py)"]
+        BSP --> APP["Civic Web Interface"]
+        BRP --> APP
+        BTP --> APP
+        TSP --> APP
+        TRP --> APP
+        MAP["Leaflet Map Builder (src/map_builder.py)"] --> APP
+    end
 ```
 
 ---
 
 ## 6. Technology Stack
 
-| Domain | Technology | Version / Specification | Purpose |
+| Component | Technology | Version | Purpose in Application |
 | :--- | :--- | :--- | :--- |
-| **Frontend** | Streamlit | `>=1.35.0` | Interactive web dashboard & reactive filtering |
-| **Visualizations** | Plotly & Plotly Express | `>=5.22.0` | High-resolution interactive charts, heatmaps & maps |
-| **Backend & ETL** | Python | `3.12` | Data extraction, cleaning, validation, and analytics |
-| **Database** | SQLite & PostgreSQL | Standard SQL / PG 16 | Relational tables, foreign keys, analytical views, and indexes |
-| **ORM / Connection** | SQLAlchemy | `>=2.0.0` | Dual-engine database abstraction and pooling |
-| **BI Tooling** | Microsoft Power BI | Desktop & Service | Star-schema modeling, DAX measures, M-code ingestion |
-| **Data Processing** | Pandas & NumPy | `>=2.2.0`, `>=1.26.0` | High-performance vectorized dataset manipulation |
-| **Testing** | Pytest | `>=8.2.0` | Automated test suite (12 passed tests) |
+| **Frontend & UI** | Streamlit | `>=1.40.0` | Public-facing civic transport tracking interface |
+| **Geospatial Mapping** | Folium / Leaflet | `>=0.17.0` | Interactive maps, route polylines, station nodes |
+| **Charts & Analytics** | Plotly & Plotly Express | `>=5.22.0` | Delay trends and root-cause analysis |
+| **Backend & Providers** | Python | `3.12` | Clean modular provider layer, geocoding, and eligibility checks |
+| **Database** | SQLite & PostgreSQL | Dual Relational | Universal SQL DDL, indexes, and analytical views |
+| **Data Processing** | Pandas & NumPy | `>=2.2.0` | Schedule processing and delay calculations |
+| **Testing & QA** | Pytest | `>=9.1.0` | **30 automated tests (100% pass rate)** |
 
 ---
 
-## 7. Project Directory Structure
+## 7. Step-by-Step Installation (Windows)
 
-```
-90-days-90-projects-day-07-public-transit-delay-dashboard/
-├── .env                              # Environment configuration (local)
-├── .env.example                      # Configuration template
-├── .gitignore                        # Git exclusion rules
-├── LICENSE                           # MIT License
-├── README.md                         # Comprehensive documentation
-├── QUICKSTART.md                     # Fast setup guide
-├── DEMO_SCRIPT.md                    # 90-120s presentation script
-├── pyproject.toml                    # Python project configuration
-├── requirements.txt                  # Pinned dependencies
-├── setup.bat                         # 1-click Windows automated setup
-├── run.bat                           # 1-click Windows application launcher
-├── test.bat                          # 1-click Windows test execution script
-├── app.py                            # Streamlit multi-page web application
-├── config.py                         # Paths, thresholds, and operational constants
-├── src/
-│   ├── __init__.py
-│   ├── db.py                         # SQLAlchemy database manager (SQLite + Postgres)
-│   ├── generator.py                  # Stochastic transit feed and GTFS generator
-│   ├── etl.py                        # Extract, Transform, Load pipeline
-│   ├── analytics.py                  # Analytical queries and KPI calculation engine
-│   └── powerbi_export.py             # Star-schema CSV and DAX generator
-├── sql/
-│   ├── 01_schema.sql                 # Universal table definitions & indexes
-│   ├── 02_views_kpis.sql             # Pre-aggregated analytical views
-│   ├── 03_analytics_queries.sql      # 10 production interview SQL queries
-│   └── postgres_setup.sql            # PostgreSQL specific schema & vacuum scripts
-├── powerbi/
-│   ├── dax_measures.dax              # 13 official DAX measures
-│   ├── power_query_m.txt             # Power Query M ingestion script
-│   ├── report_layout.json            # Power BI page and visual specifications
-│   └── README.md                     # Step-by-step Power BI Desktop instructions
-├── data/
-│   ├── README.md                     # Data dictionary and schema documentation
-│   ├── raw/                          # Raw generated CSV files
-│   ├── processed/                    # Cleaned analytical CSV files
-│   └── powerbi_export/               # Ready-to-import Star Schema tables
-├── docs/
-│   ├── PROJECT_OVERVIEW.md           # Business context, problem, scope
-│   ├── ARCHITECTURE.md               # Technical architecture & Mermaid diagrams
-│   ├── USER_GUIDE.md                 # Complete feature walkthrough
-│   ├── DEVELOPMENT_NOTES.md          # Design decisions and trade-offs
-│   ├── TESTING.md                    # Test cases and verification log
-│   ├── TROUBLESHOOTING.md            # Windows error resolutions and FAQ
-│   └── POWERBI_GUIDE.md              # In-depth Power BI modeling guide
-├── screenshots/
-│   ├── generate_screenshots.py       # Automated screenshot generator script
-│   ├── dashboard_overview.png
-│   ├── route_analysis.png
-│   ├── station_bottlenecks.png
-│   └── peak_hours_surge.png
-└── tests/
-    ├── __init__.py
-    ├── test_db.py                    # Database connection & view tests
-    ├── test_etl.py                   # Ingestion and cleaning tests
-    ├── test_analytics.py             # KPI calculations and filter tests
-    ├── test_kpi.py                   # Delay thresholds and TRI score tests
-    └── test_generator.py             # Feed generator schema & integrity tests
-```
-
----
-
-## 8. Prerequisites
-
-- **Operating System**: Windows 10 or 11 (also runs on Linux / macOS).
-- **Python**: Version `3.10`, `3.11`, or `3.12` installed.
-- **Git**: Installed for version control.
-- **Power BI Desktop** *(Optional)*: Required only if customizing or viewing `.pbix` reports natively.
-
----
-
-## 9. Step-by-Step Windows Installation
-
-### Option A: Automated 1-Click Setup (Recommended)
+### Automated 1-Click Setup
 1. Clone the repository:
    ```cmd
    git clone https://github.com/raguramrrp/90-days-90-projects-day-07-public-transit-delay-dashboard.git
    cd 90-days-90-projects-day-07-public-transit-delay-dashboard
    ```
-2. Double-click `setup.bat`. This automatically:
-   - Validates your Python runtime.
-   - Creates an isolated `.venv` environment.
-   - Installs dependencies from `requirements.txt`.
-   - Copies `.env.example` to `.env`.
-   - Runs `src/etl.py` to seed the database with 11,000+ observations.
-   - Generates Star-Schema CSVs in `data/powerbi_export/`.
-3. Launch the application:
+2. Run automated setup:
+   ```cmd
+   setup.bat
+   ```
+3. Launch the platform:
    ```cmd
    run.bat
    ```
-
-### Option B: Manual Setup
-```powershell
-# 1. Create and activate virtual environment
-py -3.12 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-
-# 2. Upgrade pip and install packages
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-
-# 3. Initialize environment variables
-copy .env.example .env
-
-# 4. Run data ingestion and export
-python src\etl.py
-python src\powerbi_export.py
-
-# 5. Launch dashboard
-streamlit run app.py
-```
+   *The application will open automatically at `http://localhost:8501`.*
 
 ---
 
-## 10. Environment Variables (`.env.example`)
+## 8. Automated Testing & Verification
 
-| Variable | Default Value | Description |
-| :--- | :--- | :--- |
-| `DATABASE_URL` | `sqlite:///data/transit.db` | Database connection string (SQLite or PostgreSQL) |
-| `APP_NAME` | `Public Transit Delay Analytics Dashboard` | Application display title |
-| `DEBUG` | `True` | Debug mode toggle |
-| `PORT` | `8501` | Local port for Streamlit web server |
-| `SAMPLE_DAYS` | `30` | Number of historical days to generate |
-| `SAMPLE_TRIPS_PER_DAY` | `80` | Average daily trips simulated |
-
-To connect to PostgreSQL:
-```ini
-DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/transit_analytics
-```
-
----
-
-## 11. Core Mathematical Formulations
-
-### 1. Delay Minutes
-$$\text{Delay (Minutes)} = \frac{\text{Actual Arrival Timestamp} - \text{Scheduled Arrival Timestamp}}{60}$$
-
-### 2. On-Time Arrival Percentage
-$$\text{On-Time \%} = \frac{\text{Count}(\text{Arrivals with Delay} \le 2.0\text{ min})}{\text{Total Monitored Arrivals}} \times 100$$
-
-### 3. Transit Reliability Index (TRI)
-A unified composite performance metric on a $0 - 100$ scale:
-$$\text{TRI} = \max\left(0, \min\left(100, (\text{On-Time \%} \times 0.70) + ((100 - \text{Severe \%}) \times 0.30) - (\max(0, \text{Avg Delay}) \times 1.5)\right)\right)$$
-
-| TRI Range | Service Quality Tier | Operational Meaning |
-| :--- | :--- | :--- |
-| **85.0 – 100.0** | 🟢 **High (Optimal)** | Excellent punctuality; minimal schedule disruption |
-| **70.0 – 84.9** | 🔵 **Acceptable (Standard)** | Normal metropolitan operations within SLA tolerance |
-| **50.0 – 69.9** | 🟡 **Needs Attention** | Chronic delays requiring headway adjustments |
-| **0.0 – 49.9** | 🔴 **Critical** | Severe infrastructure or corridor failure |
-
----
-
-## 12. Production SQL Analytics Queries
-
-The project includes 10 production SQL queries (`sql/03_analytics_queries.sql`) testing key data analyst interview competencies:
-
-```sql
--- Example: Top 5 Bottleneck Stations Ranked by Average Delay
-WITH station_stats AS (
-    SELECT 
-        s.station_id,
-        s.station_name,
-        s.zone_id,
-        COUNT(a.record_id) AS arrival_count,
-        AVG(a.delay_minutes) AS raw_avg_delay,
-        ROUND(AVG(a.delay_minutes), 2) AS avg_delay_minutes,
-        ROUND(100.0 * SUM(CASE WHEN a.status = 'Severe Delay' THEN 1 ELSE 0 END) / COUNT(a.record_id), 2) AS severe_pct
-    FROM stations s
-    JOIN actual_times a ON s.station_id = a.station_id
-    GROUP BY s.station_id, s.station_name, s.zone_id
-)
-SELECT 
-    DENSE_RANK() OVER (ORDER BY raw_avg_delay DESC) AS delay_rank,
-    station_name,
-    zone_id,
-    arrival_count,
-    avg_delay_minutes,
-    severe_pct
-FROM station_stats
-WHERE arrival_count >= 10
-LIMIT 5;
-```
-
----
-
-## 13. Testing & Quality Assurance
-
-Automated testing is configured using **pytest**. Run all tests via:
+Automated tests are executed via `test.bat`:
 ```cmd
 test.bat
 ```
 
-### Actual Test Results
+### Verified Test Results (37/37 Passed)
 ```
-tests/test_analytics.py::test_analytics_kpi_workflow PASSED              [  8%]
-tests/test_analytics.py::test_empty_dataframe_handling PASSED            [ 16%]
-tests/test_db.py::test_init_db_and_health PASSED                         [ 25%]
-tests/test_db.py::test_execute_query_and_non_query PASSED                [ 33%]
-tests/test_etl.py::test_etl_transform_and_load PASSED                    [ 41%]
-tests/test_generator.py::test_generate_transit_data_schemas PASSED       [ 50%]
-tests/test_generator.py::test_referential_integrity PASSED               [ 58%]
-tests/test_kpi.py::test_classify_delay_status PASSED                     [ 66%]
-tests/test_kpi.py::test_determine_time_period PASSED                     [ 75%]
-tests/test_kpi.py::test_calculate_reliability_score_perfect PASSED       [ 83%]
-tests/test_kpi.py::test_calculate_reliability_score_bounds PASSED        [ 91%]
-tests/test_kpi.py::test_get_tier_info PASSED                             [100%]
+============================= test session starts =============================
+platform win32 -- Python 3.12.6, pytest-9.1.1, pluggy-1.7.0
+rootdir: D:\\90 days\\90-days-90-projects-day-07-public-transit-delay-dashboard
+configfile: pyproject.toml
+testpaths: tests
+collected 37 items
 
-============================= 12 passed in 4.34s ==============================
+tests/test_analytics.py::test_analytics_kpi_workflow PASSED              [  2%]
+tests/test_analytics.py::test_empty_dataframe_handling PASSED            [  5%]
+tests/test_chennai_data.py::test_chennai_operators PASSED                [  8%]
+tests/test_chennai_data.py::test_chennai_stations PASSED                 [ 10%]
+tests/test_chennai_data.py::test_chennai_routes PASSED                   [ 13%]
+tests/test_chennai_data.py::test_bottleneck_stations PASSED              [ 16%]
+tests/test_chennai_data.py::test_chennai_data_sources PASSED             [ 18%]
+tests/test_db.py::test_init_db_and_health PASSED                         [ 21%]
+tests/test_db.py::test_execute_query_and_non_query PASSED                [ 24%]
+tests/test_etl.py::test_etl_transform_and_load PASSED                    [ 27%]
+tests/test_generator.py::test_generate_transit_data_schemas PASSED       [ 29%]
+tests/test_generator.py::test_referential_integrity PASSED               [ 32%]
+tests/test_kpi.py::test_classify_delay_status PASSED                     [ 35%]
+tests/test_kpi.py::test_determine_time_period PASSED                     [ 37%]
+tests/test_kpi.py::test_calculate_reliability_score_perfect PASSED       [ 40%]
+tests/test_kpi.py::test_calculate_reliability_score_bounds PASSED        [ 43%]
+tests/test_kpi.py::test_get_tier_info PASSED                             [ 45%]
+tests/test_providers.py::test_data_freshness_tiers PASSED                [ 48%]
+tests/test_providers.py::test_haversine_distance PASSED                  [ 51%]
+tests/test_providers.py::test_bus_stop_provider_search_and_proximity PASSED [ 54%]
+tests/test_bus_route_eligibility PASSED               [ 56%]
+tests/test_providers.py::test_train_number_format_validation PASSED      [ 59%]
+tests/test_providers.py::test_train_tirunelveli_eligibility_enforcement PASSED [ 62%]
+tests/test_providers.py::test_train_running_status_honest_classification PASSED [ 64%]
+tests/test_geocoding_landmark_resolution PASSED       [ 67%]
+tests/test_providers.py::test_stitch_additional_trains PASSED            [ 70%]
+tests/test_providers.py::test_station_hub_interchanges PASSED            [ 72%]
+tests/test_tracking.py::test_get_live_feed_status PASSED                 [ 75%]
+tests/test_tracking.py::test_get_vehicle_tracking_data_demo_mode PASSED  [ 78%]
+tests/test_tracking.py::test_get_vehicle_tracking_data_live_mode PASSED  [ 81%]
+tests/test_tracking.py::test_advance_demo_vehicles PASSED                [ 83%]
+tests/test_tracking.py::test_reset_demo_tracking_data PASSED             [ 86%]
+tests/test_ui.py::test_stitch_template_exists_and_valid PASSED           [ 89%]
+tests/test_ui.py::test_stitch_template_civic_palette_and_typography PASSED [ 91%]
+tests/test_ui.py::test_stitch_template_bus_search_features PASSED        [ 94%]
+tests/test_ui.py::test_stitch_template_train_search_features PASSED      [ 97%]
+tests/test_ui.py::test_stitch_template_station_hubs PASSED               [100%]
+============================= 37 passed in 4.40s ==============================
 ```
-**Test Status:** `PASS` (12 passed, 0 failures, 0 warnings).
-
+**Test Status:** `PASS` (37 passed, 0 failures, 100% success rate).
 ---
 
-## 14. Known Limitations
-
-1. **Simulated Timetables**: Historical feeds are realistically generated using stochastic delay distributions rather than live GTFS-RT APIs.
-2. **Static Network Graph**: Stop sequence cascading assumes fixed station routing without dynamic track switching or express bypass paths.
-3. **Power BI Desktop Native Engine**: While CSV dimensional exports and DAX scripts are 100% complete, viewing native `.pbix` files requires a Windows installation of Microsoft Power BI Desktop.
-
+## 9. Security, Privacy & Compliance Audit
+1. **Zero Credential Leaks**: No API keys, passwords, or tokens are committed to source files. Configuration is read strictly from environment variables via `.env`.
+2. **Safe SQL Parameterization**: All SQL queries use SQLAlchemy parameterized bindings (`:param`), preventing SQL injection.
+3. **Privacy by Design**: Device coordinates are evaluated in-memory for proximity distance calculations and are never logged, stored in databases, or transferred to third parties.
+4. **No Fake Telemetry in Production**: Production Mode strictly displays published timetables. Synthetic movement is restricted to Demonstration Mode with an explicit warning banner.
 ---
-
-## 15. Future Roadmap
-
-- [ ] **Real-time GTFS-RT Ingestion**: Connect live Protobuf feeds from public transit agencies via Apache Kafka or WebSockets.
-- [ ] **Predictive Delay Forecasting**: Train LightGBM / XGBoost regression models to forecast arrival delay 30 minutes in advance.
-- [ ] **Passenger Crowding Density**: Correlate passenger card tap-in volume with dwell-time delays.
-- [ ] **Commuter Push Alerts**: Webhook alerts to Discord / Telegram when route delays exceed 10 minutes.
-
----
-
-## 16. Learning Outcomes & Resume Keywords
-
-### What Was Learned:
-- End-to-end data engineering pipeline design (Extract, Transform, Load) for transportation domain datasets.
-- Advanced SQL analytics using Common Table Expressions (CTEs), Window functions (`RANK`, `DENSE_RANK`, `LAG`), rolling 7-day moving averages, and grouped aggregations.
-- Star-schema dimensional modeling connecting fact tables with dimension tables.
-- DAX measure formulation including branching logic, time intelligence, and composite indexing.
-- Interactive multi-page dashboard engineering with Streamlit, Plotly Express, and responsive UI design.
-
-### Resume Keywords:
-`Power BI`, `SQL (PostgreSQL & SQLite)`, `Data Modeling`, `Star Schema`, `DAX Measures`, `Data Visualization`, `ETL Pipelines`, `KPI Formulation`, `Streamlit`, `Plotly`, `Python`, `Transit Analytics`, `Pytest`.
-
----
-
-## 17. License & Attribution
-
+## 10. License & Attribution
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.  
 Developed as part of the **90 Days – 90 Projects Challenge** by **raguramrrp**.

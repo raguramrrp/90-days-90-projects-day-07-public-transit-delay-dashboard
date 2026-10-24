@@ -1,59 +1,74 @@
-# User Guide: Public Transit Delay Analytics Dashboard
+# User Guide: Tirunelveli Public Transport Intelligence Platform (Nellai Transit)
 
 ## 1. Getting Started
 
-### Launching the Dashboard
-To start the dashboard on Windows:
-1. Double-click `run.bat` or open PowerShell in the project directory:
+### Launching the Platform on Windows
+1. Double-click `run.bat` or run in PowerShell:
    ```cmd
    .\run.bat
    ```
 2. Your default web browser will open at `http://localhost:8501`.
 
----
-
-## 2. Global Slicers & Filters (Sidebar)
-
-The left sidebar provides global controls that dynamically filter every chart, table, and KPI across the dashboard:
-
-- **Transit Route Slicer**: Select one, multiple, or all routes (e.g. Red Line, Blue Line, Bus 101).
-- **Time Period Slicer**: Filter by operational windows:
-  - `Morning Peak` (07:00 - 09:59)
-  - `Off-Peak (Midday)` (10:00 - 15:59)
-  - `Evening Peak` (16:00 - 19:59)
-  - `Night / Early Morning` (20:00 - 06:59)
-- **Service Window Radio**:
-  - `All`: Full 7-day operations.
-  - `Weekday Only`: Monday through Friday operations.
-  - `Weekend Only`: Saturday and Sunday schedules.
-- **Analysis Date Window**: Select a custom start and end date within the 30-day monitoring window.
-- **Refresh Data Button**: Re-runs the ETL pipeline to generate a fresh dataset and refresh the cache.
-- **Export PBI Button**: Generates updated Star-Schema CSV files and DAX measures.
+### Operational Mode Selection
+At the top of the screen in the header bar, you can toggle between:
+- **Production Mode (Verified Timetables)**: Real-world operational baseline. All arrivals and tracking records are marked as `[SCHEDULED]` or `[STATIC]` timetables, with zero synthetic GPS coordinates.
+- **Demonstration Mode (Simulated GPS)**: Evaluator mode with simulated live movement and progress animations, clearly identified by a prominent yellow warning banner.
 
 ---
 
-## 3. Dashboard Pages & Features
+## 2. Navigating the 6 Clean Tabs
 
-### Page 1: Overview
-- **Fleet Reliability Scorecard**: Prominent Transit Reliability Index (TRI) hero card with tier badge and quick diagnostic summary.
-- **30-Day Fleet Delay Trend**: Combined bar and line chart displaying daily average delay against a 7-day moving average and SLA target line (3.0 minutes).
-- **Executive Metric Cards**: Network volume, on-time SLA rate, average delay, and severe incident counts.
-- **Arrival Performance Donut Chart**: Breakdown of all arrivals into Early, On-Time, Minor Delay, Moderate Delay, and Severe Delay.
-- **Primary Root Causes**: Horizontal bar chart highlighting total delay minutes lost to passenger crowding, signal faults, maintenance, or traffic congestion.
+The platform features an uncluttered civic-technology interface designed for everyday commuters and transit planners:
 
-### Page 2: Route Analysis
-- **Route Deep-Dive Inspector**: Route selector with instant performance ribbon.
-- **Stop-by-Stop Delay Cascading Profile**: Spline area progression displaying cumulative delay accumulation across stations along the selected corridor.
-- **Route TRI Leaderboard**: Horizontal bar chart ranking routes by the Transit Reliability Index.
-- **Route Performance League Matrix**: Detailed performance table with on-time %, severe delay %, and TRI rankings.
+### Tab 1: 🚏 Find a Bus
+- **Find by Stop**: Search any bus stop by English or Tamil name (e.g. *Junction*, *Palayamkottai*, *நெல்லை சந்திப்பு*). Displays all passing routes, terminal stops, and frequencies.
+- **Find by Proximity / Landmark**: Pick a well-known Tirunelveli landmark (e.g., *Anna Stadium*, *Vannarpettai*, *Nellaiyappar Temple*) or use GPS coordinates to discover nearest stops within walking distance, sorted by distance in meters.
+- **Filter by Route**: Select an origin and destination to list matching direct bus routes.
 
-### Page 3: Station Bottlenecks
-- **Fare Zone Performance Ribbon**: Comparative delay cards across Zone 1 (Core Urban), Zone 2 (Inner Ring), and Zone 3 (Perimeter/Airport).
-- **Geographic Station Delay Map**: Interactive Plotly bubble map showing station facilities with bubble size indicating average delay and color indicating fare zone.
-- **Top Bottleneck Stations Bar Chart**: Ranks the top delay hotspots across the network.
-- **Station SLA Compliance Table**: Granular metrics including transfer status, peak-hour delay vs off-peak delay, and incident counts.
+---
 
-### Page 4: Peak Hours & Congestion
-- **Congestion Surge Metrics**: Morning & Evening Peak delay versus Off-Peak delay, and the **Congestion Surge Ratio** ($2.11\times$).
-- **Day of Week vs. Hour Heatmap Matrix**: Full 7x24 matrix highlighting exact days and hours with acute congestion hotspots.
-- **24-Hour Fleet Congestion Curve**: Line chart tracing hourly average delay with shaded yellow and red vertical bands representing Morning Peak (07-10h) and Evening Peak (16-20h).
+### Tab 2: 🚌 Track a Bus (TNSTC Nellai)
+- **Select Bus**: Choose from authentic TNSTC city and regional routes:
+  - `TNSTC Route 1 (TN-72-N-1042)`: Veinthaankulam New Bus Stand ↔ Tirunelveli Junction
+  - `TNSTC Route 2 (TN-72-N-2104)`: Junction ↔ Town Nellaiyappar Temple
+  - `TNSTC Route 3 (TN-72-N-3011)`: Junction ↔ Palayamkottai Market
+  - `TNSTC Route 10 (TN-72-N-1090)`: Town Nellaiyappar ↔ High Ground Medical College
+  - `TNSTC Route 41 (TN-72-N-4105)`: Junction ↔ Cheranmahadevi & Ambasamudram
+  - `TNSTC Route 144 (TN-72-N-1442)`: New Bus Stand ↔ Nanguneri & Valliyur
+- **Live Status Card**: Instantly see honest data freshness, on-time status, approaching next stop, expected arrival time, vehicle speed, and delay in minutes.
+- **Stop-by-Stop Route Timeline**: Passed stops appear in green, current approaching stop in amber with ETA, and upcoming stops with arrival projections.
+- **Route Map**: Displays an interactive Leaflet route map showing current vehicle location and stop markers.
+
+---
+
+### Tab 3: 🚆 Find a Train (Southern Railway)
+- **Search by Train Number**: Enter any 5-digit Indian Railways train number (e.g., `12632`, `20666`, `06682`, `06685`).
+- **Geographic Eligibility Enforcement**:
+  - For trains serving Tirunelveli Hub (e.g., `12632 Nellai Superfast Express`), view assigned platform at Tirunelveli Junction, current location, delay variance, and full halt timetable.
+  - If a user enters a valid train that does not operate in Tirunelveli (e.g., `12621 Tamil Nadu Express`), the platform clearly informs the user that the train runs between New Delhi and Chennai and does not serve Tirunelveli, preventing confusion.
+
+---
+
+### Tab 4: 🗺️ Tirunelveli Map
+- **Interactive District Map**: Leaflet map centered at Tirunelveli (`[8.7285, 77.7050]`).
+- **Geographic Context**: View the Thamirabarani River, transit corridors, station nodes, and live vehicle positions.
+- **Mode Filter**: Toggle between viewing All Vehicles, Buses Only, or Trains Only.
+
+---
+
+### Tab 5: 📋 Station Departure Board
+- **Choose Station**: Select from major transit stations:
+  - Tirunelveli Junction (TEN)
+  - New Bus Stand Veinthaankulam (VBS)
+  - Palayamkottai Market (PLM)
+  - Town Nellaiyappar Temple (TOWN)
+  - Ambasamudram (ASD)
+  - Tenkasi Junction (TSI)
+- **Departure Table**: View upcoming departures, vehicle/train numbers, platforms, scheduled arrival times, delay variance, and real-time status.
+
+---
+
+### Tab 6: 📊 Network Analytics
+- **Executive KPIs**: Monitored Trips, On-Time Arrival Rate (≤ 2 mins), Fleet Average Delay, and Transit Reliability Index (TRI).
+- **30-Day Delay Trend**: Daily average delay compared against a 7-day moving average.
+- **Delay Root Causes**: Breakdown of delay causes across Traffic Congestion, Railway Crossing, Peak Dwell Time, Signal Clearance, and Passenger Rush.

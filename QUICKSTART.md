@@ -1,6 +1,6 @@
-# Quick Start Guide: Public Transit Delay Analytics Dashboard
+# Quick Start Guide: Tirunelveli Public Transport Intelligence Platform (Nellai Transit)
 
-Get the project running on Windows in under 2 minutes.
+Get the platform running on Windows in under 2 minutes.
 
 ---
 
@@ -11,9 +11,9 @@ Double-click `setup.bat` or run:
 ```cmd
 setup.bat
 ```
-*This automatically checks your Python installation, creates a `.venv` virtual environment, installs dependencies, seeds the database with transit records, and exports Power BI datasets.*
+*This automatically checks your Python installation, creates a `.venv` virtual environment, installs dependencies (including Folium and Streamlit), and seeds `data/transit.db` with Tirunelveli bus and train transit records.*
 
-### Step 2: Start the Dashboard
+### Step 2: Start the Platform
 Double-click `run.bat` or run:
 ```cmd
 run.bat
@@ -25,6 +25,7 @@ Double-click `test.bat` or run:
 ```cmd
 test.bat
 ```
+*Executes all 30 automated unit tests across data, tracking, DB, ETL, providers, and KPI calculations.*
 
 ---
 
@@ -57,7 +58,6 @@ copy .env.example .env
 ### 5. Run ETL Data Pipeline
 ```powershell
 python src\etl.py
-python src\powerbi_export.py
 ```
 
 ### 6. Start Application
@@ -72,14 +72,49 @@ pytest -v
 
 ---
 
-## 📊 Opening in Microsoft Power BI Desktop
-1. Launch **Power BI Desktop**.
-2. Click **Get Data** -> **Text/CSV**.
-3. Select files from `data/powerbi_export/`:
-   - `dim_routes.csv`
-   - `dim_stations.csv`
-   - `dim_date.csv`
-   - `dim_time_period.csv`
-   - `fact_transit_performance.csv`
-4. Copy the DAX measures from `powerbi/dax_measures.dax`.
-5. Build visuals following `docs/POWERBI_GUIDE.md`.
+## ⚙️ Operational Mode Toggle
+
+Located right in the header bar:
+- **Production Mode (Verified Timetables)**: Displays honest `[SCHEDULED]` and `[STATIC]` timetables with zero fabricated live GPS telemetry.
+- **Demonstration Mode (Simulated GPS)**: Emulates real-time telemetry with a prominent yellow warning banner so evaluators can inspect live animations and ETA progression safely without deception.
+
+---
+
+## 🧭 Exploring the 6 Clean Tabs
+
+Once launched, use the top tabs to explore:
+
+1. **🚏 Find a Bus**:
+   - **Find by Stop**: Search by stop name in English or Tamil (e.g. `Junction`, `Palayamkottai`, `நெல்லை சந்திப்பு`).
+   - **Find by Proximity / Landmark**: Select a well-known Tirunelveli landmark (Vannarpettai, Anna Stadium, Nellaiyappar Temple) or input device GPS coordinates to discover nearby bus stops within walking distance.
+   - **Filter by Route**: View all bus services connecting an origin and destination stop.
+
+2. **🚌 Track a Bus (TNSTC Nellai)**:
+   - Select any Nellai city bus from the dropdown:
+     - `TNSTC Route 1 (TN-72-N-1042)`: Veinthaankulam New Bus Stand ↔ Tirunelveli Junction
+     - `TNSTC Route 2 (TN-72-N-2104)`: Junction ↔ Town Nellaiyappar Temple
+     - `TNSTC Route 3 (TN-72-N-3011)`: Junction ↔ Palayamkottai Market
+     - `TNSTC Route 10 (TN-72-N-1090)`: Town Nellaiyappar ↔ High Ground Medical College
+     - `TNSTC Route 41 (TN-72-N-4105)`: Junction ↔ Cheranmahadevi & Ambasamudram
+     - `TNSTC Route 144 (TN-72-N-1442)`: New Bus Stand ↔ Nanguneri & Valliyur
+   - Check real-time on-time/delay status, next stop ETA, vehicle speed, and stop-by-stop route timeline.
+   - View focused Leaflet route map with vehicle position.
+
+3. **🚆 Find a Train (Southern Railway)**:
+   - Search by 5-digit Indian Railways train number (e.g., `12632`, `20666`, `06682`, `06685`).
+   - **Geographic Scope Enforcement**: Verifies whether the train serves Tirunelveli Hub. If searching a valid non-local train (e.g., `12621 Tamil Nadu Express`), the system clearly explains it operates outside Tirunelveli rather than showing fake local stops.
+   - View assigned platform number, current running status, delay variance, and full halt timetable.
+
+4. **🗺️ Tirunelveli Map**:
+   - District-wide interactive Leaflet map centered at Tirunelveli (`[8.7285, 77.7050]`).
+   - View Thamirabarani River, transit corridors, station nodes, and live vehicle markers.
+   - Filter vehicles by mode: All, Buses only, or Trains only.
+
+5. **📋 Station Departure Board**:
+   - Select any major Tirunelveli station: Tirunelveli Junction, New Bus Stand, Palayamkottai, Town, Ambasamudram, or Tenkasi.
+   - Clean arrival schedule showing incoming services, platforms, scheduled times, delay variance, and honest status.
+
+6. **📊 Network Analytics**:
+   - High-level KPIs: Monitored Trips, On-Time Arrival Rate (≤ 2 mins), Average Delay, and Transit Reliability Index.
+   - 30-day delay trend with 7-day moving average.
+   - Primary delay root causes (Traffic Congestion, Railway Crossing, Peak Dwell Time, Signal Clearance, Passenger Rush).

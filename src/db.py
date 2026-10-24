@@ -1,5 +1,5 @@
-"""Database management module for Public Transit Delay Analytics Dashboard.
-Supports SQLite (out-of-the-box local) and PostgreSQL (production).
+"""Database management module for Tamil Nadu Public Transport Intelligence Platform.
+Supports SQLite (local 1-click execution) and PostgreSQL (production).
 """
 
 import sys
@@ -34,13 +34,8 @@ def init_db(drop_first: bool = False) -> None:
     with open(views_file, "r", encoding="utf-8") as f:
         views_sql = f.read()
 
-    # For SQLite, adapt DOUBLE PRECISION to REAL if needed
     if is_sqlite:
         schema_sql = schema_sql.replace("DOUBLE PRECISION", "REAL")
-
-    # Execute scripts
-    if is_sqlite:
-        # Direct sqlite connection handles multi-statement script cleanly
         conn = sqlite3.connect(SQLITE_DB_PATH)
         cursor = conn.cursor()
         cursor.executescript(schema_sql)
@@ -49,7 +44,6 @@ def init_db(drop_first: bool = False) -> None:
         conn.close()
     else:
         with engine.connect() as conn:
-            # PostgreSQL execution
             for statement in schema_sql.split(";"):
                 stmt = statement.strip()
                 if stmt:
@@ -89,7 +83,12 @@ def check_health() -> dict:
     try:
         with engine.connect() as conn:
             status["connected"] = True
-            for table in ["routes", "stations", "trips", "actual_times"]:
+            tables = [
+                "operators", "routes", "stations", "trips",
+                "actual_times", "vehicles", "vehicle_positions",
+                "data_sources", "import_history"
+            ]
+            for table in tables:
                 try:
                     res = conn.execute(text(f"SELECT COUNT(*) FROM {table}")).scalar()
                     status["tables"][table] = res

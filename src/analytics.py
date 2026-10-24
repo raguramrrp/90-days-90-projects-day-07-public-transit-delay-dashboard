@@ -1,6 +1,6 @@
-"""Analytics and KPI calculation engine for Public Transit Delay Analytics Dashboard.
+"""Analytics and KPI calculation engine for Tamil Nadu Public Transport Intelligence Platform.
 Provides high-performance aggregations, transit reliability indices (TRI),
-route performance rankings, bottleneck identification, and peak-hour metrics.
+multimodal performance comparisons, bottleneck identification, and peak-hour metrics.
 """
 
 from datetime import date
@@ -48,7 +48,7 @@ def get_tier_info(tri_score: float) -> Dict[str, Any]:
 
 
 def load_transit_facts() -> pd.DataFrame:
-    """Loads all actual arrival observations joined with routes and stations for analytical filtering."""
+    """Loads all actual arrival observations joined with routes, stations, and operators."""
     sql = """
     SELECT 
         a.record_id,
@@ -57,6 +57,7 @@ def load_transit_facts() -> pd.DataFrame:
         r.route_short_name,
         r.route_long_name,
         r.route_type,
+        r.operator_id,
         r.color_hex,
         a.station_id,
         s.station_code,
@@ -65,6 +66,8 @@ def load_transit_facts() -> pd.DataFrame:
         s.longitude,
         s.zone_id,
         s.is_transfer_station,
+        s.platforms_count,
+        s.accessible_modes,
         a.stop_sequence,
         a.scheduled_arrival,
         a.actual_arrival,
@@ -76,7 +79,8 @@ def load_transit_facts() -> pd.DataFrame:
         a.time_period,
         a.is_peak_hour,
         a.is_weekend,
-        a.day_of_week
+        a.day_of_week,
+        a.provenance
     FROM actual_times a
     JOIN trips t ON a.trip_id = t.trip_id
     JOIN routes r ON t.route_id = r.route_id
@@ -89,6 +93,7 @@ def filter_dataset(
     df: pd.DataFrame,
     routes: Optional[List[str]] = None,
     time_periods: Optional[List[str]] = None,
+    transport_modes: Optional[List[str]] = None,
     start_date: Optional[date] = None,
     end_date: Optional[date] = None,
     service_type: Optional[str] = "All"
@@ -101,6 +106,9 @@ def filter_dataset(
 
     if time_periods:
         filtered = filtered[filtered["time_period"].isin(time_periods)]
+
+    if transport_modes and "route_type" in filtered.columns:
+        filtered = filtered[filtered["route_type"].isin(transport_modes)]
 
     if start_date:
         filtered = filtered[pd.to_datetime(filtered["recorded_date"]).dt.date >= start_date]
@@ -158,6 +166,32 @@ def get_executive_kpis(df: pd.DataFrame) -> Dict[str, Any]:
         "tier_info": tier,
         "status_counts": status_counts
     }
+
+
+def get_multimodal_summary(df: pd.DataFrame) -> pd.DataFrame:
+    """Computes comparative metrics across transport modes (Bus, Metro, Suburban)."""
+    if df.empty or "route_type" not in df.columns:
+        return pd.DataFrame()
+
+    def agg_mode(group):
+        total = len(group)
+        on_time = int(group["status"].isin(["On-Time", "Early"]).sum())
+        severe = int((group["status"] == "Severe Delay").sum())
+        on_time_pct = round(100.0 * on_time / total, 1)
+        severe_pct = round(100.0 * severe / total, 1)
+        avg_delay = round(float(group["delay_minutes"].mean()), 2)
+        tri = calculate_reliability_score(on_time_pct, severe_pct, avg_delay)
+        return pd.Series({
+            "Trips Operated": group["trip_id"].nunique(),
+            "Arrivals Monitored": total,
+            "Avg Delay (min)": avg_delay,
+            "On-Time SLA %": on_time_pct,
+            "Severe Delays": severe,
+            "Reliability Score (TRI)": tri
+        })
+
+    summary = df.groupby("route_type", as_index=False).apply(agg_mode, include_groups=False)
+    return summary
 
 
 def get_route_performance_table(df: pd.DataFrame) -> pd.DataFrame:
@@ -227,7 +261,6 @@ def get_peak_hour_breakdown(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFram
     if df.empty:
         return pd.DataFrame(), pd.DataFrame()
 
-    # 1. Hourly curve
     hourly = df.groupby("hour_of_day").agg(
         total_trips=("trip_id", "nunique"),
         total_stops=("record_id", "count"),
@@ -237,7 +270,6 @@ def get_peak_hour_breakdown(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFram
     ).reset_index()
     hourly["avg_delay"] = hourly["avg_delay"].round(2)
 
-    # 2. Period summary
     period_summary = df.groupby("time_period").agg(
         total_stops=("record_id", "count"),
         avg_delay=("delay_minutes", "mean"),

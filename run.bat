@@ -2,7 +2,7 @@
 setlocal
 
 echo =====================================================================
-echo  Starting Public Transit Delay Analytics Dashboard...
+echo  Starting Tamil Nadu Public Transport Intelligence Platform...
 echo =====================================================================
 
 if not exist ".venv\Scripts\streamlit.exe" (

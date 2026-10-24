@@ -2,7 +2,7 @@
 setlocal
 
 echo =====================================================================
-echo  Running Automated Test Suite (Transit Delay Analytics Dashboard)
+echo  Running Automated Test Suite (TN Public Transport Intelligence)
 echo =====================================================================
 
 if not exist ".venv\Scripts\pytest.exe" (

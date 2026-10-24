@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 echo =====================================================================
-echo  Public Transit Delay Analytics Dashboard - Windows Setup (Day 7)
+echo  Tamil Nadu Public Transport Intelligence Platform - Setup (Day 7)
 echo =====================================================================
 
 :: 1. Check Python installation

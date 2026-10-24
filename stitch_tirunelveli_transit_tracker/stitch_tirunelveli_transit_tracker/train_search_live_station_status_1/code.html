@@ -1,0 +1,448 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><title>Tirunelveli Transport Tracker</title><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "outline-variant": "#c0c7d1", "primary-fixed-dim": "#94ccff", "error": "#ba1a1a", "tertiary-fixed-dim": "#ffb878", "surface-container-high": "#e2e7ff", "on-primary-container": "#cbe4ff", "inverse-on-surface": "#eef0ff", "on-error": "#ffffff", "on-secondary-container": "#006f66", "surface-tint": "#006399", "on-secondary": "#ffffff", "on-tertiary-container": "#ffdbbe", "surface-container-highest": "#dae2fd", "tertiary": "#733f00", "primary-container": "#0369a1", "on-secondary-fixed-variant": "#005049", "on-surface": "#131b2e", "on-tertiary-fixed": "#2e1500", "on-primary-fixed-variant": "#004b74", "background": "#faf8ff", "surface-bright": "#faf8ff", "secondary": "#006a61", "on-tertiary-fixed-variant": "#6c3a00", "surface-variant": "#dae2fd", "on-primary": "#ffffff", "on-error-container": "#93000a", "secondary-container": "#86f2e4", "inverse-primary": "#94ccff", "on-tertiary": "#ffffff", "surface-dim": "#d2d9f4", "surface": "#faf8ff", "on-background": "#131b2e", "secondary-fixed-dim": "#6bd8cb", "outline": "#707881", "secondary-fixed": "#89f5e7", "tertiary-fixed": "#ffdcc1", "surface-container": "#eaedff", "on-surface-variant": "#40474f", "on-primary-fixed": "#001d32", "primary": "#00507d", "surface-container-low": "#f2f3ff", "inverse-surface": "#283044", "surface-container-lowest": "#ffffff", "primary-fixed": "#cde5ff", "on-secondary-fixed": "#00201d", "error-container": "#ffdad6", "tertiary-container": "#955301" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "margin": "1.5rem", "gutter": "1rem", "space-sm": "0.5rem", "gutter-mobile": "0.75rem", "space-xl": "1.5rem", "space-lg": "1rem", "space-xs": "0.25rem", "space-md": "0.75rem", "margin-mobile": "1rem" }, fontFamily: { "code-md": ["Inter"], "label-lg": ["Inter"], "body-sm": ["Inter"], "label-sm": ["Inter"], "label-md": ["Inter"], "body-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-md": ["Inter"], "body-md": ["Inter"], "headline-lg": ["Inter"], "headline-sm": ["Inter"] }, fontSize: { "code-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-28 px-margin-mobile flex flex-col justify-between py-space-xs"><div class="flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Tirunelveli Transport Tracker Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1XzxklooR8lbqD-SOLOP7arwvqjLbj34yYpXhPt3vZdPorUJ83gYzgTXt89T4mfLgAXB96BFFpwAJhUHUBwg1GzCkVU8DvlTmuVcimiL5eDQqOoxB8xRUmskdx-aSLIemXzyCoRUf6JLY40vuphYrohG4S2gcG5VmvwtyxcH8S9BukiPE5jB54Wwbc3UkULDlGfLCtYuH2GCP09bSFzu8U4sNFNvFZuyGX6JMAdsw2D"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-primary uppercase tracking-wider truncate">Tirunelveli Transport</span><span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate leading-tight">Train Schedules</span></div></div><div class="flex items-center gap-space-xs"><a class="min-h-[44px] px-space-xs flex items-center font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" data-path="about-tracker" href="#"><span class="material-symbols-outlined text-[20px]">info</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="h-7 bg-surface-container-low px-space-sm flex items-center justify-between rounded"><div class="flex items-center gap-space-xs min-w-0"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse flex-shrink-0"></span><span class="font-label-sm text-label-sm text-secondary truncate">TNSTC &amp; SR Feed: ONLINE (30s)</span></div><span class="font-code-md text-[11px] text-outline flex-shrink-0">TIN-CIVIC-v2.4</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-28 pb-32 bg-surface px-margin-mobile"><div class="flex flex-col w-full space-y-space-md">
+<!-- TOP CONTEXT WORKSPACE & MODE SWITCHER -->
+<section class="bg-surface-container-low p-space-md rounded-lg flex flex-col space-y-space-md">
+<!-- Tab Switcher -->
+<div class="grid grid-cols-2 gap-space-xs bg-surface-container p-space-xs rounded">
+<a class="flex items-center justify-center gap-space-xs py-space-xs px-space-sm rounded text-on-surface-variant font-label-md hover:bg-surface-container-highest transition-colors" data-path="bus-schedules" href="#">
+<span class="material-symbols-outlined text-[18px]">directions_bus</span>
+<span>Bus Search</span>
+</a>
+<a class="flex items-center justify-center gap-space-xs py-space-xs px-space-sm rounded bg-primary text-on-primary font-label-md shadow-sm" data-path="train-schedules" href="#">
+<span class="material-symbols-outlined text-[18px]">train</span>
+<span>Train Search</span>
+</a>
+</div>
+<!-- Search Form -->
+<form class="flex flex-col space-y-space-sm" id="trainSearchForm" onsubmit="event.preventDefault();">
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider flex items-center justify-between" for="trainQuery">
+<span>Train Number or Regional Name</span>
+<span class="text-secondary font-code-md lowercase text-[10px]">active query</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-10 py-2.5 bg-surface-container-lowest text-on-surface font-code-md text-code-md rounded outline-none focus:bg-surface focus:shadow-[0_0_0_2px_rgba(0,80,125,0.25)] transition-all" id="trainQuery" placeholder="e.g. 16127, Nellai, Ananthapuri" type="text" value="16127 - Guruvayur Express / MS Guruvayur">
+<button class="absolute right-3 text-outline hover:text-on-surface min-h-[32px] min-w-[32px] flex items-center justify-center" onclick="document.getElementById('trainQuery').value=''" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-0.5">
+          Showing regional trains calling at Tirunelveli Junction (TEN), Tirunelveli Town (TYT), and Palayamkottai (PLM).
+        </p>
+</div>
+<!-- Station Filter -->
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider" for="stationSelect">
+          Calling Station Scope
+        </label>
+<div class="relative">
+<select class="w-full appearance-none py-2 px-3 pr-8 bg-surface-container-lowest text-on-surface font-label-md rounded outline-none focus:shadow-[0_0_0_2px_rgba(0,80,125,0.25)]" id="stationSelect">
+<option selected="" value="TEN">Calling at: Tirunelveli Junction (TEN)</option>
+<option value="TYT">Calling at: Tirunelveli Town (TYT)</option>
+<option value="PLM">Calling at: Palayamkottai (PLM)</option>
+<option value="ALL">All Tirunelveli Suburban Area Halts</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full mt-space-xs bg-primary text-on-primary py-2.5 px-space-md rounded font-label-lg flex items-center justify-center gap-space-xs hover:bg-primary-container active:scale-[0.99] transition-transform shadow-sm" id="findTrainBtn" type="submit">
+<span class="material-symbols-outlined text-[18px]">my_location</span>
+<span>Locate Telemetry &amp; Running Status</span>
+</button>
+</form>
+<!-- Quick Chips -->
+<div class="flex flex-col space-y-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">High Volume Corridors</span>
+<div class="flex flex-wrap gap-space-xs">
+<button class="bg-surface-container-highest text-on-surface font-label-sm py-1 px-2.5 rounded hover:bg-surface-container transition-colors flex items-center gap-1" onclick="quickSelectTrain('16723 Ananthapuri Exp')" type="button">
+<span class="font-code-md text-[10px] text-primary">16723</span> Ananthapuri
+        </button>
+<button class="bg-surface-container-highest text-on-surface font-label-sm py-1 px-2.5 rounded hover:bg-surface-container transition-colors flex items-center gap-1" onclick="quickSelectTrain('12631 Nellai Superfast')" type="button">
+<span class="font-code-md text-[10px] text-primary">12631</span> Nellai Exp
+        </button>
+<button class="bg-surface-container-highest text-on-surface font-label-sm py-1 px-2.5 rounded hover:bg-surface-container transition-colors flex items-center gap-1" onclick="quickSelectTrain('06685 TEN-TCN Pass')" type="button">
+<span class="font-code-md text-[10px] text-secondary">06685</span> TEN-TCN Pass
+        </button>
+<button class="bg-surface-container-highest text-on-surface font-label-sm py-1 px-2.5 rounded hover:bg-surface-container transition-colors flex items-center gap-1" onclick="quickSelectTrain('16847 Mayiladuturai-SCT')" type="button">
+<span class="font-code-md text-[10px] text-outline">16847</span> Mayiladuturai-SCT
+        </button>
+</div>
+</div>
+</section>
+<!-- LIVE TIRUNELVELI JUNCTION PLATFORM BOARD -->
+<section class="flex flex-col space-y-space-sm">
+<!-- Station Header & Telemetry Signal Bar -->
+<div class="bg-surface-container p-space-sm rounded-lg flex flex-col space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-primary text-[20px] flex-shrink-0">apartment</span>
+<span class="font-label-md text-label-md text-on-surface uppercase tracking-wide truncate">Tirunelveli Jn (TEN) • Madurai Div (SR)</span>
+</div>
+<span class="font-code-md text-[11px] bg-surface-container-lowest px-2 py-0.5 rounded text-on-surface-variant font-semibold">10:15 AM</span>
+</div>
+<div class="flex items-center justify-between text-[11px] text-on-surface-variant font-body-sm pt-0.5">
+<span class="flex items-center gap-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          NTES Integrated Stream
+        </span>
+<span class="font-code-md text-outline">3 Trains in Approach Block</span>
+</div>
+</div>
+<!-- Card 1: Selected Train 16127 -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md flex flex-col space-y-space-sm shadow-sm relative overflow-hidden" style="box-shadow: inset 4px 0 0 0 #00507d;">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-code-md text-code-md font-bold text-primary">16127</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">MS to Guruvayur Express</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Via Chengalpattu, Trichy, Dindigul, Madurai</span>
+</div>
+<!-- Live Badge -->
+<span class="flex-shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-[10px] uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+          Live GPS
+        </span>
+</div>
+<!-- Telemetry Checkpoint -->
+<div class="bg-surface-container-low p-space-xs rounded flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-secondary flex-shrink-0">radar</span>
+<span class="text-on-surface truncate">Last Dep: <strong class="font-label-sm">Vanchi Maniyachchi Jn</strong> (09:48 AM)</span>
+</div>
+<span class="font-code-md text-[11px] text-primary flex-shrink-0 font-medium">29 km away</span>
+</div>
+<!-- Platform & Timings Grid -->
+<div class="grid grid-cols-4 gap-space-xs text-center py-1 bg-surface-container-lowest rounded">
+<div class="flex flex-col bg-surface-container-low py-1 rounded">
+<span class="font-label-sm text-[10px] text-outline uppercase">Sched</span>
+<span class="font-code-md text-code-md font-semibold text-on-surface">10:25</span>
+</div>
+<div class="flex flex-col bg-surface-container-low py-1 rounded">
+<span class="font-label-sm text-[10px] text-outline uppercase">Est Arr</span>
+<span class="font-code-md text-code-md font-bold text-primary">10:37</span>
+</div>
+<div class="flex flex-col bg-tertiary-fixed py-1 rounded">
+<span class="font-label-sm text-[10px] text-on-tertiary-fixed uppercase font-semibold">Delay</span>
+<span class="font-code-md text-code-md font-bold text-tertiary">+12m</span>
+</div>
+<div class="flex flex-col bg-primary-fixed py-1 rounded">
+<span class="font-label-sm text-[10px] text-on-primary-fixed uppercase font-semibold">Platform</span>
+<span class="font-code-md text-code-md font-bold text-primary">PF 2</span>
+</div>
+</div>
+<!-- Interactive Switch for Telemetry Section -->
+<button class="w-full py-2 px-space-sm bg-primary-container text-on-primary font-label-md rounded flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity" id="toggleTelemetryBtn" onclick="toggleTelemetry()" type="button">
+<span class="material-symbols-outlined text-[18px]">route</span>
+<span id="telemetryBtnText">Viewing Route Telemetry (Active Below)</span>
+<span class="material-symbols-outlined text-[18px] ml-auto" id="telemetryChevron">expand_less</span>
+</button>
+</article>
+<!-- Card 2: 06685 Tirunelveli-Tiruchendur Passenger -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md flex flex-col space-y-space-sm shadow-sm relative overflow-hidden" style="box-shadow: inset 4px 0 0 0 #006a61;">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-code-md text-code-md font-bold text-secondary">06685</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">TEN to Tiruchendur Pass</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Daily Unreserved Express / Local Passenger</span>
+</div>
+<span class="flex-shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-[10px] uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Origin • On Time
+        </span>
+</div>
+<div class="grid grid-cols-3 gap-space-xs text-center py-1">
+<div class="flex flex-col bg-surface-container-low py-1 rounded">
+<span class="font-label-sm text-[10px] text-outline uppercase">Origin</span>
+<span class="font-label-md text-on-surface">TEN Jn</span>
+</div>
+<div class="flex flex-col bg-surface-container-low py-1 rounded">
+<span class="font-label-sm text-[10px] text-outline uppercase">Dep Time</span>
+<span class="font-code-md text-code-md font-bold text-on-surface">10:40 AM</span>
+</div>
+<div class="flex flex-col bg-surface-container-low py-1 rounded">
+<span class="font-label-sm text-[10px] text-outline uppercase">Berth/PF</span>
+<span class="font-code-md text-code-md font-bold text-secondary">PF 4</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span> Rake stationed at yard line
+        </span>
+<button class="py-1 px-space-sm bg-surface-container-highest text-on-surface font-label-sm rounded hover:bg-surface-container transition-colors" onclick="toastNotification('06685 Rake has occupied Platform 4 dispatch siding.')" type="button">
+          Track Departure
+        </button>
+</div>
+</article>
+<!-- Card 3: 16723 Ananthapuri Express (Degraded / Telemetry Fallback State) -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md flex flex-col space-y-space-sm shadow-sm relative overflow-hidden" style="box-shadow: inset 4px 0 0 0 #707881;">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-code-md text-code-md font-bold text-outline">16723</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Ananthapuri Express</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Chennai Egmore to Kollam Jn via TEN</span>
+</div>
+<span class="flex-shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-[10px] uppercase">
+<span class="material-symbols-outlined text-[12px]">signal_disconnected</span>
+          NTES Sched Only
+        </span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-outline text-[18px] flex-shrink-0">info</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-snug">Locomotive GPS transponder ping delayed &gt;20 mins. Reverted to timetable estimate.</span>
+</div>
+<div class="flex items-center justify-between text-body-sm pt-1">
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">Sched TEN Arr:</span>
+<span class="font-code-md font-bold text-on-surface">11:15 AM</span>
+</div>
+<button class="py-1 px-space-sm bg-surface-container-highest text-on-surface font-label-sm rounded hover:bg-surface-container transition-colors" onclick="toastNotification('Inquiry sent to TEN Station Master signaling log. No manual delay recorded yet.')" type="button">
+          Station Inquiry
+        </button>
+</div>
+</article>
+</section>
+<!-- ROUTE TELEMETRY & PROGRESS TRACKER (FOR 16127) -->
+<section class="bg-surface-container-low p-space-md rounded-lg flex flex-col space-y-space-md" id="telemetrySection">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">linear_scale</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Live Corridor Waypoints</span>
+</div>
+<span class="font-code-md text-[11px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+        68 km/h • On Line
+      </span>
+</div>
+<!-- Linear Station Chain -->
+<div class="relative pl-6 space-y-space-md before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-outline-variant">
+<!-- Kovilpatti -->
+<div class="relative flex items-start justify-between gap-space-xs text-body-sm">
+<div class="absolute -left-[19px] top-1 w-2.5 h-2.5 rounded-full bg-outline"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface font-semibold">Kovilpatti (CVP)</span>
+<span class="text-body-sm text-outline">Passed 09:12 AM</span>
+</div>
+<span class="font-code-md text-[11px] text-secondary font-medium">On Time</span>
+</div>
+<!-- Kadambur -->
+<div class="relative flex items-start justify-between gap-space-xs text-body-sm">
+<div class="absolute -left-[19px] top-1 w-2.5 h-2.5 rounded-full bg-outline"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface font-semibold">Kadambur (KDU)</span>
+<span class="text-body-sm text-outline">Passed 09:31 AM</span>
+</div>
+<span class="font-code-md text-[11px] text-tertiary font-medium">+8 min</span>
+</div>
+<!-- Vanchi Maniyachchi Jn -->
+<div class="relative flex items-start justify-between gap-space-xs text-body-sm">
+<div class="absolute -left-[20px] top-1 w-3 h-3 rounded-full bg-primary ring-2 ring-surface"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface font-bold">Vanchi Maniyachchi Jn (MEJ)</span>
+<span class="text-body-sm text-outline">Departed 09:48 AM • PF 1</span>
+</div>
+<span class="font-code-md text-[11px] text-tertiary font-medium">+12 min</span>
+</div>
+<!-- Naraikkinar -->
+<div class="relative flex items-start justify-between gap-space-xs text-body-sm">
+<div class="absolute -left-[19px] top-1 w-2.5 h-2.5 rounded-full bg-outline"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Naraikkinar (NRK)</span>
+<span class="text-body-sm text-outline">Through pass 10:02 AM</span>
+</div>
+<span class="font-code-md text-[11px] text-tertiary font-medium">+11 min</span>
+</div>
+<!-- Active: Approaching Gangaikondan -->
+<div class="relative flex items-start justify-between gap-space-xs bg-surface-container-lowest p-space-xs rounded -ml-2 pl-4 shadow-sm">
+<div class="absolute -left-[12px] top-3 w-4 h-4 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow">
+<span class="material-symbols-outlined text-[10px]">train</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-primary font-bold">Gangaikondan (GDN)</span>
+<span class="bg-secondary text-on-secondary font-label-sm text-[9px] px-1 rounded">APPROACHING</span>
+</div>
+<span class="text-body-sm text-on-surface-variant font-medium">Passing signal speed ~68 km/h</span>
+</div>
+<span class="font-code-md text-[11px] text-secondary font-bold">10:18 AM</span>
+</div>
+<!-- Thalaiyuthu -->
+<div class="relative flex items-start justify-between gap-space-xs text-body-sm opacity-80">
+<div class="absolute -left-[19px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Thalaiyuthu (TAY)</span>
+<span class="text-body-sm text-outline">Cement Plant Siding</span>
+</div>
+<span class="font-code-md text-[11px] text-outline">Est 10:28 AM</span>
+</div>
+<!-- TARGET STATION: Tirunelveli Junction -->
+<div class="relative flex items-start justify-between gap-space-xs bg-primary text-on-primary p-space-sm rounded -ml-2 pl-4 shadow-sm">
+<div class="absolute -left-[12px] top-3.5 w-4 h-4 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center font-bold text-[10px]">
+          ★
+        </div>
+<div class="flex flex-col">
+<span class="font-label-lg font-bold text-on-primary">TIRUNELVELI JN (TEN)</span>
+<span class="text-on-primary-container text-[12px]">Confirmed Berth: Platform 2</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-code-md text-code-md font-bold text-on-primary">10:37 AM</span>
+<span class="font-code-md text-[10px] text-tertiary-fixed-dim font-medium">+12m delay</span>
+</div>
+</div>
+<!-- Down line -->
+<div class="relative flex items-start justify-between gap-space-xs text-body-sm opacity-60">
+<div class="absolute -left-[19px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Valliyur / Nagercoil Jn</span>
+<span class="text-body-sm text-outline">Terminal: Guruvayur (GUV)</span>
+</div>
+<span class="font-code-md text-[11px] text-outline">Down Route</span>
+</div>
+</div>
+<!-- Telemetry Hardware Stamp Box -->
+<div class="bg-surface-container p-space-sm rounded flex flex-col space-y-space-xs font-code-md text-[11px] text-on-surface-variant">
+<div class="flex items-center justify-between">
+<span class="text-outline uppercase tracking-wider">Locomotive ID</span>
+<span class="text-on-surface font-semibold">WAP-7 ED 37102 (Electric Erode Shed)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-outline uppercase tracking-wider">Data Feed Engine</span>
+<span class="text-on-surface">CRIS NTES Transponder (RailTel Optical Link)</span>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-outline-variant/30">
+<span class="text-outline">Sync Timestamp</span>
+<span class="text-secondary font-bold" id="liveSyncClock">10:14:22 AM (Sync: 38s ago)</span>
+</div>
+</div>
+</section>
+<!-- INTERACTION STATES & CIVIC DATA INTEGRITY MODULE -->
+<section class="flex flex-col space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">System State Diagnostics &amp; Protocols</span>
+<span class="font-code-md text-[10px] text-outline">ISO-CIVIC-2024</span>
+</div>
+<!-- Error Handling Demonstration Grid -->
+<div class="grid grid-cols-1 gap-space-sm">
+<!-- Simulated Error Toast / Warning Preview -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-error text-[20px] flex-shrink-0 mt-0.5">error</span>
+<div class="flex flex-col min-w-0 space-y-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Deterministic Truth Guarantee</span>
+<span class="font-code-md text-[10px] text-error font-bold uppercase">Strict Audit</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            When railway transponder packets time out or signal box punch cards are absent, schedules switch explicitly to <span class="font-semibold text-on-surface">Untracked/Scheduled</span> state. The tracker never extrapolates or hallucinates phantom train positions.
+          </p>
+</div>
+</div>
+<!-- Test Quick-Action Bar -->
+<div class="bg-surface-container p-space-sm rounded-lg flex items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-outline text-[18px]">bug_report</span>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Test Feed Exception Cases:</span>
+</div>
+<div class="flex items-center gap-1.5 flex-shrink-0">
+<button class="px-2 py-1 bg-surface-container-highest text-on-surface font-label-sm rounded hover:bg-surface-container-high transition-colors" onclick="triggerMockToast('Invalid train query: 99999 not registered in Madurai/Southern Railway Division.')" type="button">
+            404 Train
+          </button>
+<button class="px-2 py-1 bg-surface-container-highest text-on-surface font-label-sm rounded hover:bg-surface-container-high transition-colors" onclick="triggerMockToast('Provider NTES Hub Timeout: Reverting to offline scheduled timetable snapshot.')" type="button">
+            Timeout
+          </button>
+</div>
+</div>
+</div>
+<!-- Official Advisory Card -->
+<div class="bg-surface-container-low p-space-sm rounded flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px] flex-shrink-0 mt-0.5">verified_user</span>
+<p class="font-body-sm text-[11px] text-on-surface-variant leading-relaxed">
+<strong>Station Operational Directive:</strong> Real-time speeds and platform allocations remain provisional until trains cross the home signal at Melapalayam / Gangaikondan blocks. Always heed physical platform indicators and oral PA chimes at Tirunelveli Junction.
+      </p>
+</div>
+</section>
+<!-- Interactive Dynamic Toast Container (Client side notification container) -->
+<div class="fixed bottom-20 left-4 right-4 z-50 pointer-events-none flex flex-col items-center space-y-2" id="toastContainer"></div>
+</div>
+<script>
+  function quickSelectTrain(trainName) {
+    const input = document.getElementById('trainQuery');
+    if (input) {
+      input.value = trainName;
+      toastNotification('Filtered board for: ' + trainName);
+    }
+  }
+
+  function toggleTelemetry() {
+    const sec = document.getElementById('telemetrySection');
+    const btnText = document.getElementById('telemetryBtnText');
+    const chevron = document.getElementById('telemetryChevron');
+    if (!sec) return;
+
+    if (sec.classList.contains('hidden')) {
+      sec.classList.remove('hidden');
+      if (btnText) btnText.textContent = 'Viewing Route Telemetry (Active Below)';
+      if (chevron) chevron.textContent = 'expand_less';
+    } else {
+      sec.classList.add('hidden');
+      if (btnText) btnText.textContent = 'Expand 16127 Route Waypoint Tracker';
+      if (chevron) chevron.textContent = 'expand_more';
+    }
+  }
+
+  function triggerMockToast(msg) {
+    toastNotification(msg, true);
+  }
+
+  function toastNotification(message, isAlert) {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = 'pointer-events-auto bg-inverse-surface text-inverse-on-surface px-3 py-2 rounded shadow-md text-body-sm flex items-center gap-2 max-w-sm transition-all duration-300 transform translate-y-2 opacity-0';
+    
+    const icon = document.createElement('span');
+    icon.className = 'material-symbols-outlined text-[18px] ' + (isAlert ? 'text-tertiary-fixed-dim' : 'text-secondary-fixed');
+    icon.textContent = isAlert ? 'warning' : 'info';
+
+    const text = document.createElement('span');
+    text.className = 'text-[12px] leading-tight font-medium';
+    text.textContent = message;
+
+    toast.appendChild(icon);
+    toast.appendChild(text);
+    container.appendChild(toast);
+
+    // Animate in
+    requestAnimationFrame(() => {
+      toast.classList.remove('translate-y-2', 'opacity-0');
+    });
+
+    // Auto dismiss after 3.2s
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-y-2');
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 3200);
+  }
+
+  // Live timer tick for civic realism
+  (function initClock() {
+    let seconds = 38;
+    const syncElem = document.getElementById('liveSyncClock');
+    if (syncElem) {
+      setInterval(() => {
+        seconds = (seconds + 1) % 60;
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        syncElem.textContent = `${timeStr} (Sync: ${seconds}s ago)`;
+      }, 1000);
+    }
+  })();
+</script><footer class="mt-space-xl pt-space-md pb-space-lg flex flex-col gap-space-xs"><div class="flex flex-col gap-space-xs text-on-surface-variant"><span class="font-label-sm text-label-sm text-on-surface uppercase">Coverage Area</span><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Tirunelveli Municipal Corp • Palayamkottai • Junction • Veerapandianpatnam New Bus Stand • Gangaikondan • Vannarpettai • Tenkasi Line</p></div><div class="flex flex-col gap-space-xs text-on-surface-variant mt-space-xs"><span class="font-label-sm text-label-sm text-on-surface uppercase">Data Feeds &amp; Governance</span><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Open Transit Data • Southern Railway NTP • TNSTC Tirunelveli Division Civic Telemetry</p></div><div class="flex items-center justify-between pt-space-xs"><a class="font-label-sm text-label-sm text-primary underline" data-path="privacy-policy" href="#">Civic Data Privacy Policy</a><span class="font-label-sm text-label-sm text-outline">Public Infrastructure Map</span></div><p class="font-body-sm text-[11px] text-outline leading-tight mt-space-xs bg-surface-container-lowest p-space-xs rounded">Unofficial civic utility. Not affiliated with TNSTC or Indian Railways. Schedules subject to junction dispatch variance.</p></footer></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.06)]" data-active-classes="text-primary font-bold"><div class="h-16 px-space-xs grid grid-cols-4 items-center"><a class="flex flex-col items-center justify-center min-h-[44px] h-full text-on-surface-variant transition-colors" data-path="bus-schedules" href="#"><span class="material-symbols-outlined text-[22px]">directions_bus</span><span class="font-label-sm text-label-sm tracking-tight">Bus Search</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-h-[44px] h-full transition-colors text-primary font-bold" data-path="train-schedules" href="#"><span class="material-symbols-outlined text-[22px]">train</span><span class="font-label-sm text-label-sm tracking-tight">Train Search</span></a><a class="flex flex-col items-center justify-center min-h-[44px] h-full text-on-surface-variant transition-colors" data-path="station-hubs" href="#"><span class="material-symbols-outlined text-[22px]">hub</span><span class="font-label-sm text-label-sm tracking-tight">Hubs</span></a><a class="flex flex-col items-center justify-center min-h-[44px] h-full text-on-surface-variant transition-colors" data-path="about-tracker" href="#"><span class="material-symbols-outlined text-[22px]">info</span><span class="font-label-sm text-label-sm tracking-tight">About</span></a></div></nav></body></html>

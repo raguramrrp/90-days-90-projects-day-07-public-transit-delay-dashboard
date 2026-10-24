@@ -1,43 +1,48 @@
-# Project Overview: Public Transit Delay Analytics Dashboard
+# Project Overview: Tirunelveli Public Transport Intelligence Platform (Nellai Transit)
 
 ## 1. Executive Summary
-Urban public transportation networks face intense operational pressures. Commuters, transit dispatchers, and urban mobility planners require rapid, granular visibility into recurring delay patterns, bottleneck stations, and peak-hour congestion cascades.
+Public transportation networks in Tirunelveli (Nellai) serve thousands of daily passengers across student, worker, pilgrim, and regional corridors. Commuters, transport coordinators, and station managers require clear, intuitive visibility into bus and train schedules, arrival delays, platform information, and route progressions.
 
-The **Public Transit Delay Analytics Dashboard** is a data analytics and business intelligence platform built to calculate, monitor, and visualize transit reliability across bus rapid transit, metro subways, light rail, and regional commuter rail services.
+The **Tirunelveli Public Transport Intelligence Platform (Nellai Transit)** is a civic-technology multimodal tracking and analytics platform. Centered on the **Tirunelveli District**, it integrates city and regional buses (**TNSTC Tirunelveli**), passenger and express trains (**Southern Railway Nellai Hub**), and intercity express connections (**SETC**).
 
 ## 2. Problem Statement
-Transit passengers frequently experience unpredictable wait times and cascading delays without clear explanation. Concurrently, transit planners lack unified dashboards connecting raw GTFS timetable observations with actionable business KPIs, such as:
-- Which routes consistently fail service-level agreements (SLAs)?
-- Which intermodal stations act as chronic bottlenecks causing dwell-time delays?
-- What is the exact delay penalty introduced by morning and evening peak traffic hours?
-- How do we calculate a fair, single-number **Transit Reliability Index (TRI)** that balances on-time rates with severe delay penalties?
+Daily commuters frequently experience unpredictable wait times, missed bus and train connections, and confusion at major transit junctions:
+- Is TNSTC Bus Route 1 or Route 3 running on schedule or delayed?
+- Which platform at Tirunelveli Junction is my passenger or express train arriving at?
+- When will the next bus arrive at Veinthaankulam New Bus Stand or Palayamkottai Market?
+- How can transit systems quantify fleet health using a single, balanced **Transit Reliability Index (TRI)** without cluttering commuter interfaces with confusing academic charts?
 
 ## 3. Project Objectives
-1. **Automated ETL Ingestion**: Extract scheduled and actual arrival/departure feeds, validate timestamps, and calculate precise arrival deviations in minutes.
-2. **Standardized Delay Classification**: Segment operations into 5 clear tiers: Early (<0m), On-Time (0-2m), Minor Delay (2-5m), Moderate Delay (5-15m), and Severe Delay (>15m).
-3. **KPI & Reliability Modeling**: Compute the Transit Reliability Index (TRI, 0-100 scale), SLA on-time percentages, and peak-to-off-peak delay surge ratios.
-4. **Dual Engine Architecture**: Provide out-of-the-box zero-setup execution on Windows via SQLite while supporting enterprise PostgreSQL deployments.
-5. **Multi-Platform Analytics**: Deliver an interactive Streamlit web dashboard alongside complete Microsoft Power BI Star-Schema assets, DAX measure definitions, and SQL analytics scripts.
+1. **Multimodal Discovery & Tracking**: Search buses by stop or GPS landmark proximity, and track active TNSTC buses (`TN-72-N-xxxx`).
+2. **Train Search by Number**: Look up Indian Railways trains by 5-digit number, verifying local Tirunelveli eligibility and halt schedules.
+3. **Stop-by-Stop ETAs**: Clear progression timelines displaying passed halts, approaching stops, expected arrival timestamps, and delay variance.
+4. **Station Departure Boards**: High-contrast digital departure boards for Tirunelveli Junction, New Bus Stand, Palayamkottai, Town, Ambasamudram, and Tenkasi.
+5. **Geospatial Tracking & Map (Leaflet / Folium)**: Render an interactive map of Tirunelveli transit corridors, Thamirabarani River basin, station nodes, and vehicles.
+6. **Clean Civic UI**: 6 uncluttered tabs designed for everyday commuters and transit managers.
+7. **Honest Data Freshness**: Strict labeling (`LIVE`, `RECENT`, `SCHEDULED`, `ESTIMATED`, `STATIC`, `UNAVAILABLE`) with isolated demonstration mode.
+8. **Dual Engine Architecture**: Out-of-the-box zero-setup execution on Windows via SQLite while supporting enterprise PostgreSQL deployments.
 
 ## 4. Key Performance Indicators (KPIs)
-- **Total Trips & Observations**: Overall operational volume.
-- **On-Time Arrival Rate (%)**: Percentage of arrivals arriving within 2 minutes of schedule.
+- **Total Trips & Observations**: Overall operational volume (14,640+ station arrivals monitored).
+- **On-Time Arrival Rate (%)**: Percentage of arrivals arriving within 2 minutes of schedule ($\le 2.0\text{ min}$).
 - **Average Delay (Minutes)**: Fleet-wide arithmetic mean variance from scheduled timetables.
 - **Severe Delay Count & Rate**: Proportion of arrivals delayed by more than 15 minutes.
 - **Transit Reliability Index (TRI)**: Composite reliability score (0-100):
   $$TRI = \max(0, \min(100, (\text{On-Time \%} \times 0.70) + ((100 - \text{Severe \%}) \times 0.30) - (\text{Avg Delay} \times 1.5)))$$
-- **Congestion Surge Multiplier**: Ratio of peak-hour delay to midday off-peak delay.
+- **Congestion Surge Multiplier**: Ratio of peak-hour delay to midday off-peak delay ($2.08\times$).
 
-## 5. Scope & MVP Boundaries
+## 5. Scope & Geographic Boundaries
 ### In Scope:
-- Ingestion of 6 transit routes (Subway, Light Rail, BRT, Express Bus, Commuter Rail) and 18 stations across 3 metropolitan zones.
-- 30-day historical analysis with over 11,000 arrival observations.
-- Interactive multi-page dashboard (Overview, Routes, Stations, Peak Hours, Power BI/SQL Hub).
-- Production-grade SQL queries with CTEs, window functions, and moving averages.
-- Star-schema Power BI export datasets and DAX measure files.
-- Automated Windows setup (`setup.bat`, `run.bat`, `test.bat`).
+- Geographic scope: Tirunelveli District and key radial corridors ($8.30^\circ - 9.00^\circ\text{ N}, 77.30^\circ - 78.20^\circ\text{ E}$).
+- 3 operators: TNSTC Tirunelveli (City & Regional Buses), Southern Railway (Nellai Hub), SETC (Intercity Express).
+- 10 authentic routes: TNSTC Routes 1, 2, 3, 10, 41, 144, and Southern Railway Trains 12632, 20666, 06682, 06685.
+- 20 verified stations with GPS coordinates and modal interchange indicators.
+- 30-day historical analysis with over 14,000 arrival observations.
+- Interactive 6-tab Streamlit web platform with Folium/Leaflet maps and Plotly charts.
+- Dual relational database schema (SQLite + PostgreSQL DDL).
+- Automated Windows setup (`setup.bat`, `run.bat`, `test.bat`) with 30 automated unit tests.
 
 ### Out of Scope (Future Upgrade Path):
-- Real-time GPS stream ingestion via Kafka / GTFS-RT.
-- Machine Learning predictive arrival ETA models.
-- Automated SMS/Push commuter alerts.
+- Real-time GPS OBD hardware integration across all private omni buses.
+- Machine Learning arrival ETA prediction models under extreme monsoon weather.
+- Mobile native application wrapper (Flutter / React Native).

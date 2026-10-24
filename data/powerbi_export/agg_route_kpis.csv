@@ -1,7 +1,11 @@
 route_id,route_short_name,route_long_name,route_type,color_hex,total_observations,avg_delay_minutes,max_delay_minutes,on_time_count,minor_delay_count,moderate_delay_count,severe_delay_count,on_time_percentage,severe_delay_percentage,reliability_score
-RT-BLUE,Blue Line (Subway),West Harbor <-> Airport Terminals Express,Subway / Rail,#2563EB,2094,12.4,57.38,195,213,1060,626,9.31,29.89,8.9
-RT-BUS-101,Bus 101 (Civic Express),Civic Center <-> Eastgate Terminal,Express Bus,#9333EA,1516,9.98,54.0,29,342,904,241,1.91,15.9,11.6
-RT-CR-305,Commuter Rail 305,Union Station <-> Mountain Foothills Regional,Commuter Rail,#0D9488,2045,10.52,55.55,167,313,1156,409,8.17,20.0,13.9
-RT-GREEN,Green Line (Light Rail),Riverfront Plaza <-> University Heights,Light Rail,#16A34A,1660,9.3,53.3,237,286,872,265,14.28,15.96,21.2
-RT-ORANGE,Orange Line (BRT),South Gateway <-> North Suburban Mall,Bus Rapid Transit,#EA580C,1870,9.82,57.83,247,307,937,379,13.21,20.27,18.4
-RT-RED,Red Line (Subway),Downtown Central <-> Tech Hub Innovation Park,Subway / Rail,#DC2626,2190,9.46,53.5,198,493,1104,395,9.04,18.04,16.7
+SR-06682,Train #06682 (Tiruchendur Passenger Special),Tirunelveli (TEN) <-> Tiruchendur Coastal Temple Line,Superfast & Express Rail,#B91C1C,784,7.89,38.82,105,223,360,96,13.39,12.24,23.8
+SR-06685,Train #06685 (Sengottai Express Special),Tirunelveli (TEN) <-> Tenkasi Junction (TSI) via Ambasamudram,Superfast & Express Rail,#991B1B,1158,9.14,49.5,36,298,652,172,3.11,14.85,14.0
+SR-12632,Train #12632 (Nellai Superfast Express),Tirunelveli Junction (TEN) <-> Chennai Egmore (MS) Superfast Corridor,Superfast & Express Rail,#DC2626,536,6.19,38.3,78,195,229,34,14.55,6.34,29.0
+SR-20666,Train #20666 (Vande Bharat Express),Tirunelveli (TEN) <-> Chennai Egmore (MS) Vande Bharat Express,Superfast & Express Rail,#2563EB,460,6.28,38.28,71,170,188,31,15.43,6.74,29.3
+TNSTC-R1,Route 1 (Junction <-> Palayamkottai),Tirunelveli Junction <-> Palayamkottai Market via Vannarpettai,Bus,#0D9488,1120,12.59,50.38,2,82,724,312,0.18,27.86,2.9
+TNSTC-R10,Route 10 (New Bus Stand <-> Medical College),New Bus Stand <-> Government Medical College High Ground,Bus,#14B8A6,904,10.8,77.3,48,141,549,166,5.31,18.36,12.0
+TNSTC-R144,Route 144 (New Bus Stand <-> Ambasamudram),Tirunelveli New Bus Stand <-> Ambasamudram via Cheranmahadevi,Bus,#D97706,820,9.18,57.17,33,195,478,114,4.02,13.9,14.9
+TNSTC-R2,Route 2 (New Bus Stand <-> Town),New Bus Stand (Veinthaankulam) <-> Nellaiyappar Temple Town via Junction,Bus,#10B981,904,10.56,44.7,40,115,597,152,4.42,16.81,12.2
+TNSTC-R3,Route 3 (Junction <-> Pettai),Tirunelveli Junction <-> Pettai Industrial Estate via Town,Bus,#047857,699,8.19,48.5,57,182,378,82,8.15,11.73,19.9
+TNSTC-R41,Route 41 (Junction <-> Thazhaiyuthu),Tirunelveli Junction <-> Thazhaiyuthu Sankar Nagar,Bus,#0F766E,657,10.68,50.58,38,93,413,113,5.78,17.2,12.9
