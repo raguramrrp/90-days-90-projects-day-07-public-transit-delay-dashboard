@@ -58,11 +58,17 @@
 
 ---
 
-## 3. Power BI Integration Issues
+## 3. Civic Web App & Map Issues
 
-### Issue 6: Power Query reports "File not found" for CSV files
-- **Cause**: Power BI needs absolute file paths or matching relative folder paths.
+### Issue 6: GPS Geolocation Prompt Blocked in Browser
+- **Cause**: Modern web browsers require explicit user permission for `navigator.geolocation` or restrict it on non-localhost/insecure origins.
 - **Resolution**:
-  1. In Power BI Desktop, open **Transform Data** -> **Data Source Settings**.
-  2. Update the folder path to point directly to `<your-project-path>/data/powerbi_export/`.
-  3. Click **Close & Apply**.
+  1. Click the site settings icon (lock/tune) next to the browser URL bar.
+  2. Toggle **Location** permission to **Allow**.
+  3. Alternatively, use the landmark dropdown or one-tap terminal shortcut chips (`Junction`, `New Bus Stand`, `Palayamkottai`) for instant stop discovery.
+
+### Issue 7: Mobile View Scrolling or Layout Truncation
+- **Cause**: Browser zoom or aggressive ad-blockers preventing full iframe sizing.
+- **Resolution**:
+  1. Ensure browser zoom is set to 100% (`Ctrl + 0`).
+  2. The Google Stitch UI includes a persistent fixed bottom navigation bar on mobile viewports for quick switching between `Buses`, `Trains`, `Hubs`, and `About`.

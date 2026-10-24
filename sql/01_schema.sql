@@ -15,13 +15,13 @@ DROP TABLE IF EXISTS stations;
 DROP TABLE IF EXISTS routes;
 DROP TABLE IF EXISTS operators;
 
--- 1. Transport Operators (MTC Chennai, CMRL, Southern Railway, etc.)
+-- 1. Transport Operators (TNSTC Tirunelveli, Southern Railway, etc.)
 CREATE TABLE operators (
     operator_id         VARCHAR(32) PRIMARY KEY,
     operator_name       VARCHAR(128) NOT NULL,
     short_code          VARCHAR(16) NOT NULL,
     transport_mode      VARCHAR(32) NOT NULL,
-    city                VARCHAR(64) DEFAULT 'Chennai',
+    city                VARCHAR(64) DEFAULT 'Tirunelveli',
     state               VARCHAR(64) DEFAULT 'Tamil Nadu',
     website             VARCHAR(256),
     color_hex           VARCHAR(16) DEFAULT '#3B82F6',

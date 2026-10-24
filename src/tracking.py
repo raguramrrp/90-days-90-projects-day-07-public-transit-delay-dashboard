@@ -19,29 +19,24 @@ from src.providers import DataFreshness, haversine_distance_km
 def get_live_feed_status() -> dict:
     """Returns the verified operational connection status of external transit feeds."""
     return {
-        "CUMTA Open Data": {
-            "status": "UNRESOLVED_DNS",
-            "message": "Domain 'opendata.cumta.org' currently fails DNS resolution.",
-            "authorized_live": False
-        },
-        "MTC Chennai Bus Feed": {
+        "TNSTC Tirunelveli AIS-140 Feed": {
             "status": "RESTRICTED",
-            "message": "Official portal endpoints require internal department authentication.",
+            "message": "Official transponder telemetry requires municipal department authentication.",
             "authorized_live": False
         },
-        "CMRL Metro Real-time Feed": {
+        "Southern Railway CRIS NTES (TEN)": {
+            "status": "ACCESSIBLE",
+            "message": "National Train Enquiry System published timetables and station feeds verified.",
+            "authorized_live": False
+        },
+        "SETC Intercity Operations Feed": {
             "status": "SCHEDULES_ONLY",
-            "message": "Public web endpoints offer static frequency/headway, not live GPS telemetry.",
+            "message": "Public web endpoints offer static frequency and timetables.",
             "authorized_live": False
         },
         "TNSTC Tirunelveli Schedules": {
             "status": "ACCESSIBLE",
             "message": "Official published timetables and stage definitions active.",
-            "authorized_live": False
-        },
-        "Southern Railway Timetables (TEN)": {
-            "status": "ACCESSIBLE",
-            "message": "National Train Enquiry System published timetables verified.",
             "authorized_live": False
         },
         "Local Demo Engine": {

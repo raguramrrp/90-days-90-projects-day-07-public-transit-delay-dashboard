@@ -22,15 +22,15 @@ def test_get_live_feed_status():
     """Verify live feed statuses reflect verified telemetry sources."""
     status = get_live_feed_status()
     assert isinstance(status, dict)
-    assert "CUMTA Open Data" in status
-    assert "MTC Chennai Bus Feed" in status
-    assert "CMRL Metro Real-time Feed" in status
+    assert "TNSTC Tirunelveli AIS-140 Feed" in status
+    assert "Southern Railway CRIS NTES (TEN)" in status
+    assert "SETC Intercity Operations Feed" in status
     assert "Local Demo Engine" in status
 
     # Verify external feeds are marked not authorized / non-live
-    assert status["CUMTA Open Data"]["authorized_live"] is False
-    assert status["MTC Chennai Bus Feed"]["authorized_live"] is False
-    assert status["CMRL Metro Real-time Feed"]["authorized_live"] is False
+    assert status["TNSTC Tirunelveli AIS-140 Feed"]["authorized_live"] is False
+    assert status["Southern Railway CRIS NTES (TEN)"]["authorized_live"] is False
+    assert status["SETC Intercity Operations Feed"]["authorized_live"] is False
     # Local demo engine is active
     assert status["Local Demo Engine"]["authorized_live"] is True
 

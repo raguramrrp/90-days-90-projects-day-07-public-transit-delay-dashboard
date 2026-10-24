@@ -77,7 +77,7 @@ def load_stitch_ui():
     """Reads the unified Stitch HTML application template."""
     template_path = Path(__file__).resolve().parent / "src" / "stitch_template.html"
     if not template_path.exists():
-        template_path = Path(__file__).resolve().parent / "stitch_tirunelveli_transit_tracker" / "stitch_tirunelveli_transit_tracker" / "bus_search_live_telemetry_2" / "code.html"
+        template_path = Path(__file__).resolve().parent / "stitch_tirunelveli_transit_tracker" / "bus_search_live_telemetry_2" / "code.html"
     with open(template_path, "r", encoding="utf-8") as f:
         return f.read()
 

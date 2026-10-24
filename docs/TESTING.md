@@ -55,12 +55,12 @@ Automated tests are executed using **pytest** via `test.bat`:
 - `test_calculate_reliability_score_bounds`: Verifies upper and lower limits ($[0.0, 100.0]$).
 - `test_get_tier_info`: Validates badge and color mapping across High, Acceptable, Needs Attention, and Critical tiers.
 
-### `tests/test_chennai_data.py` (5 tests)
-- `test_chennai_operators`: Verifies operator definitions, modes (Bus, Train), and brand color hex values for TNSTC, Southern Railway, and SETC.
-- `test_chennai_stations`: Verifies all 20 stations, ensures unique IDs, checks zone mapping, and validates that GPS coordinates fall strictly within Tamil Nadu bounds ($8.00^\circ - 14.00^\circ\text{ N}, 76.00^\circ - 81.00^\circ\text{ E}$).
-- `test_chennai_routes`: Validates all 10 transit routes, ensuring stops resolve to valid station IDs and all transport modes are represented.
+### `tests/test_tirunelveli_data.py` (5 tests)
+- `test_tirunelveli_operators`: Verifies operator definitions, modes (Bus, Train), and brand color hex values for TNSTC, Southern Railway, and SETC.
+- `test_tirunelveli_stations`: Verifies all 20 stations, ensures unique IDs, checks zone mapping, and validates that GPS coordinates fall strictly within Tirunelveli district bounds ($8.30^\circ - 9.00^\circ\text{ N}, 77.30^\circ - 78.20^\circ\text{ E}$).
+- `test_tirunelveli_routes`: Validates all 10 transit routes, ensuring stops resolve to valid station IDs and all transport modes are represented.
 - `test_bottleneck_stations`: Verifies chronic bottleneck stations exist in the master station catalog (Tirunelveli Junction, New Bus Stand, etc.).
-- `test_chennai_data_sources`: Validates cataloged feeds (TNSTC, Southern Railway, SETC, Telemetry Engine).
+- `test_tirunelveli_data_sources`: Validates cataloged feeds (TNSTC, Southern Railway, SETC, Telemetry Engine).
 
 ### `tests/test_generator.py` (2 tests)
 - `test_generate_transit_data_schemas`: Verifies that generated DataFrames contain all mandatory columns and valid types.
@@ -91,11 +91,11 @@ collected 37 items
 
 tests/test_analytics.py::test_analytics_kpi_workflow PASSED              [  2%]
 tests/test_analytics.py::test_empty_dataframe_handling PASSED            [  5%]
-tests/test_chennai_data.py::test_chennai_operators PASSED                [  8%]
-tests/test_chennai_data.py::test_chennai_stations PASSED                 [ 10%]
-tests/test_chennai_data.py::test_chennai_routes PASSED                   [ 13%]
-tests/test_chennai_data.py::test_bottleneck_stations PASSED              [ 16%]
-tests/test_chennai_data.py::test_chennai_data_sources PASSED             [ 18%]
+tests/test_tirunelveli_data.py::test_tirunelveli_operators PASSED        [  8%]
+tests/test_tirunelveli_data.py::test_tirunelveli_stations PASSED         [ 10%]
+tests/test_tirunelveli_data.py::test_tirunelveli_routes PASSED           [ 13%]
+tests/test_tirunelveli_data.py::test_bottleneck_stations PASSED          [ 16%]
+tests/test_tirunelveli_data.py::test_tirunelveli_data_sources PASSED     [ 18%]
 tests/test_db.py::test_init_db_and_health PASSED                         [ 21%]
 tests/test_db.py::test_execute_query_and_non_query PASSED                [ 24%]
 tests/test_etl.py::test_etl_transform_and_load PASSED                    [ 27%]

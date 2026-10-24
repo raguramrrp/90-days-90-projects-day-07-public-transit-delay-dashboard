@@ -29,7 +29,7 @@ class TransitETLPipeline:
         self.audit_log = {}
 
     def extract(self):
-        """Extracts transit datasets or generates authentic multimodal Chennai feed."""
+        """Extracts transit datasets or generates authentic multimodal Tirunelveli feed."""
         ops, routes, stations, trips, actual, vehicles, positions, sources = generate_transit_data(num_days=30, trips_per_day=80, full_bundle=True)
         save_raw_datasets(routes, stations, trips, actual)
 
@@ -142,7 +142,7 @@ class TransitETLPipeline:
 
             # Insert initial system settings
             settings_rows = [
-                {"setting_key": "active_region", "setting_value": "Chennai Metropolitan Area", "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")},
+                {"setting_key": "active_region", "setting_value": "Tirunelveli District & Corridors", "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")},
                 {"setting_key": "timezone", "setting_value": "Asia/Kolkata", "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")},
                 {"setting_key": "demo_mode_default", "setting_value": "ENABLED", "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")},
                 {"setting_key": "data_retention_days", "setting_value": "90", "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
@@ -153,7 +153,7 @@ class TransitETLPipeline:
             elapsed = (datetime.now() - start_time).total_seconds()
             import_audit = [{
                 "import_id": 1,
-                "source_id": "SRC-CUMTA-STATIC",
+                "source_id": "SRC-TNSTC-STATIC",
                 "started_at": start_time.strftime("%Y-%m-%d %H:%M:%S"),
                 "completed_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "status": "SUCCESS",

@@ -1,6 +1,6 @@
-"""Configuration settings for the Tamil Nadu Public Transport Intelligence Platform.
-Supports multimodal transit (MTC Buses, CMRL Metro, Southern Railway Suburban)
-with initial geographic coverage focused on Chennai metropolitan area.
+"""Configuration settings for the Tirunelveli Public Transport Intelligence Platform (Nellai Transit).
+Supports multimodal transit (TNSTC City & Regional Buses, Southern Railway Nellai Hub, SETC Express)
+with geographic coverage focused on the Tirunelveli district and connected transport corridors.
 """
 
 import os
@@ -12,16 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
-POWERBI_EXPORT_DIR = DATA_DIR / "powerbi_export"
 SQL_DIR = BASE_DIR / "sql"
-POWERBI_DIR = BASE_DIR / "powerbi"
 DOCS_DIR = BASE_DIR / "docs"
 SCREENSHOTS_DIR = BASE_DIR / "screenshots"
 
 # Ensure runtime directories exist
 RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
 PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
-POWERBI_EXPORT_DIR.mkdir(parents=True, exist_ok=True)
 SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load environment variables
@@ -34,14 +31,13 @@ DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DB_URL)
 
 # Application metadata
 APP_NAME = os.getenv("APP_NAME", "Nellai Public Transport Live Tracker (Tirunelveli)")
-REGION_NAME = "Tamil Nadu (Tirunelveli Metropolitan Region)"
+REGION_NAME = "Tamil Nadu (Tirunelveli District & Corridors)"
 TIMEZONE = "Asia/Kolkata"
 DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1", "t")
 PORT = int(os.getenv("PORT", 8501))
 
 # Map Center Coordinates (Tirunelveli Center: Junction / Vannarpettai)
 TIRUNELVELI_MAP_CENTER = [8.7285, 77.7050]
-CHENNAI_MAP_CENTER = TIRUNELVELI_MAP_CENTER  # Alias for backward compatibility
 DEFAULT_ZOOM_LEVEL = 13
 
 # Delay Thresholds (in minutes) - FTA & Indian Urban Transit Standard
@@ -98,18 +94,18 @@ VEHICLE_DATA_STATUS = {
     "SIMULATED": {"label": "SIMULATED", "badge": "Demo Synthetic Movement", "color": "#F59E0B"}
 }
 
-# Realistic Delay Root Causes for Chennai Transit
+# Authentic Delay Root Causes for Tirunelveli Transit
 DELAY_REASONS = [
     "Normal Operations",
-    "Mount Road (Anna Salai) Heavy Traffic",
-    "Guindy Flyover Traffic Bottle-Neck",
-    "Koyambedu CMBT Passenger Dwell Crowding",
-    "Central Station Signal Interlocking Hold",
-    "Track Maintenance Work",
-    "Heavy Monsoon Rains & Water Logging",
+    "Vannarpettai Bridge Traffic Congestion",
+    "Nellai Junction Dwell & Passenger Transfer Crowding",
+    "Palayamkottai Market Bus Bay Congestion",
+    "Murugankurichi Signal Rush Hour Delay",
+    "Thazhaiyuthu Railway Level Crossing Gate Closure",
+    "Pettai Industrial Estate Peak Traffic",
+    "Heavy Thamirabarani Basin Monsoon Rains & Water Logging",
     "High Boarding Volume at Interchange",
-    "Rolling Stock / EMU Brake Inspection",
-    "Door Sensor Re-Verification"
+    "Tirunelveli Town Arch & Temple Car Street Choke Point"
 ]
 
 # Reliability Score (TRI) Classification Tiers

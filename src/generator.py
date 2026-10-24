@@ -1,6 +1,7 @@
-"""Tamil Nadu / Chennai Multimodal Transit Dataset Generator.
-Generates comprehensive transit feeds covering MTC Buses, CMRL Metro, and Southern Railway Suburban trains,
-with authentic route topologies, real Chennai coordinates, timetable variances, and vehicle positions.
+"""Tirunelveli (Nellai) Multimodal Transit Dataset Generator.
+Generates comprehensive transit feeds covering TNSTC City & Regional Buses, Southern Railway Express trains,
+and SETC Intercity services with authentic route topologies, real Tirunelveli coordinates, timetable variances,
+and vehicle positions.
 """
 
 import sys
@@ -12,17 +13,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import pandas as pd
 import numpy as np
 from config import RAW_DATA_DIR, DELAY_REASONS, TIME_PERIODS
-from src.chennai_data import (
-    CHENNAI_OPERATORS,
-    CHENNAI_STATIONS,
-    CHENNAI_ROUTES,
-    CHENNAI_DATA_SOURCES,
-    CHENNAI_BOTTLENECK_STATIONS
+from src.tirunelveli_data import (
+    TIRUNELVELI_OPERATORS,
+    TIRUNELVELI_STATIONS,
+    TIRUNELVELI_ROUTES,
+    TIRUNELVELI_DATA_SOURCES,
+    TIRUNELVELI_BOTTLENECK_STATIONS
 )
 
-
-MASTER_ROUTES = CHENNAI_ROUTES
-MASTER_STATIONS = CHENNAI_STATIONS
+MASTER_ROUTES = TIRUNELVELI_ROUTES
+MASTER_STATIONS = TIRUNELVELI_STATIONS
 
 
 def classify_delay_status(delay_min: float) -> str:
@@ -40,7 +40,7 @@ def classify_delay_status(delay_min: float) -> str:
 
 
 def determine_time_period(hour: int) -> tuple[str, int]:
-    """Determines time period name and peak flag (1=Peak, 0=Off-Peak) for Chennai commute."""
+    """Determines time period name and peak flag (1=Peak, 0=Off-Peak) for Tirunelveli commute."""
     if 7 <= hour < 10:
         return "Morning Peak", 1
     elif 10 <= hour < 16:
@@ -52,14 +52,14 @@ def determine_time_period(hour: int) -> tuple[str, int]:
 
 
 def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_seed: int = 42, full_bundle: bool = False):
-    """Generates authentic Chennai multimodal transit datasets:
+    """Generates authentic Tirunelveli multimodal transit datasets:
     operators, routes, stations, trips, actual_times, vehicles, vehicle_positions, data_sources.
     """
     random.seed(random_seed)
     np.random.seed(random_seed)
 
     # 1. Operators DataFrame
-    df_operators = pd.DataFrame(CHENNAI_OPERATORS)
+    df_operators = pd.DataFrame(TIRUNELVELI_OPERATORS)
 
     # 2. Routes DataFrame
     df_routes = pd.DataFrame([
@@ -72,12 +72,12 @@ def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_se
             "agency_name": r["agency_name"],
             "color_hex": r["color_hex"]
         }
-        for r in CHENNAI_ROUTES
+        for r in TIRUNELVELI_ROUTES
     ])
 
     # 3. Stations DataFrame
-    df_stations = pd.DataFrame(CHENNAI_STATIONS)
-    station_lookup = {s["station_id"]: s for s in CHENNAI_STATIONS}
+    df_stations = pd.DataFrame(TIRUNELVELI_STATIONS)
+    station_lookup = {s["station_id"]: s for s in TIRUNELVELI_STATIONS}
 
     # 4. Data Sources DataFrame
     df_sources = pd.DataFrame([
@@ -93,7 +93,7 @@ def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_se
             "record_count": 0,
             "update_frequency": s["update_frequency"]
         }
-        for s in CHENNAI_DATA_SOURCES
+        for s in TIRUNELVELI_DATA_SOURCES
     ])
 
     # 5. Trips & Arrival Observations Generation
@@ -101,21 +101,20 @@ def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_se
     actual_times_list = []
     vehicles_list = []
     positions_list = []
-    record_id_counter = 1
 
-    end_date = datetime.now().date()
-    start_date = end_date - timedelta(days=num_days - 1)
+    start_date = datetime.now().date() - timedelta(days=num_days)
+    record_id_counter = 1
     trip_counter = 1000
     pos_counter = 1
 
-    # Probability density of trips across the day
+    # Probability weighting across 24h day (peaks around 8am and 6pm)
     hour_weights = [
-        1, 1, 1, 2, 4, 7, 12, 16, 17, 14,   # 00:00 to 09:00 (morning rush)
-        10, 9, 10, 9, 9, 11, 16, 18, 16, 12, # 10:00 to 19:00 (midday & evening rush)
-        8, 6, 3, 2                          # 20:00 to 23:00 (night)
+        0.01, 0.01, 0.01, 0.01, 0.02, 0.03,  # 00:00 - 05:59
+        0.06, 0.09, 0.10, 0.08, 0.05, 0.05,  # 06:00 - 11:59 (Morning Peak)
+        0.05, 0.05, 0.05, 0.05, 0.07, 0.09,  # 12:00 - 17:59 (Evening Peak ramp)
+        0.09, 0.06, 0.04, 0.02, 0.01, 0.01   # 18:00 - 23:59
     ]
-    total_w = sum(hour_weights)
-    hour_probs = [w / total_w for w in hour_weights]
+    hour_probs = np.array(hour_weights) / sum(hour_weights)
 
     # Pre-register fleet of vehicles with authentic Tirunelveli Bus Numbers & Train Numbers
     bus_plates = {
@@ -127,7 +126,7 @@ def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_se
         "TNSTC-R144": [2210, 2211, 2212, 2213, 2214]
     }
 
-    for route in CHENNAI_ROUTES:
+    for route in TIRUNELVELI_ROUTES:
         mode = route["route_type"]
         op_id = route["operator_id"]
         v_prefix = "TNSTC" if mode == "Bus" else "SR-RAIL"
@@ -170,8 +169,8 @@ def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_se
 
         for _ in range(daily_target):
             trip_counter += 1
-            trip_id = f"TRIP-CHE-{current_date.strftime('%Y%m%d')}-{trip_counter}"
-            route = random.choice(CHENNAI_ROUTES)
+            trip_id = f"TRIP-NEL-{current_date.strftime('%Y%m%d')}-{trip_counter}"
+            route = random.choice(TIRUNELVELI_ROUTES)
             route_id = route["route_id"]
             direction_id = random.choice([0, 1])
             stops_order = list(route["stops"]) if direction_id == 0 else list(reversed(route["stops"]))
@@ -197,6 +196,7 @@ def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_se
                 "vehicle_id": vehicle_id
             })
 
+            # Stochastic delay cascading along stops
             accumulated_delay = 0.0
 
             for seq_idx, station_id in enumerate(stops_order):
@@ -211,14 +211,14 @@ def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_se
                 hour = sched_arr_time.hour
                 time_period, is_peak = determine_time_period(hour)
 
-                # Realistic Chennai Delay Modeling:
+                # Realistic Tirunelveli Delay Modeling:
                 jitter = np.random.normal(loc=0.4, scale=1.0)
                 peak_factor = np.random.exponential(scale=2.7) if is_peak else np.random.exponential(scale=0.8)
-                bottleneck_factor = np.random.uniform(1.8, 4.5) if station_id in CHENNAI_BOTTLENECK_STATIONS else 0.0
+                bottleneck_factor = np.random.uniform(1.8, 4.5) if station_id in TIRUNELVELI_BOTTLENECK_STATIONS else 0.0
                 weekend_factor = -0.5 if is_weekend else 0.0
 
-                # Metro has higher punctuality; road buses have higher traffic exposure
-                mode_factor = -1.0 if route["route_type"] == "Metro Rail" else (1.2 if route["route_type"] == "Bus" else 0.2)
+                # Train services have higher punctuality; road buses have higher traffic exposure
+                mode_factor = -0.8 if route["route_type"] == "Superfast & Express Rail" else 0.8
 
                 stop_delay_increment = jitter + peak_factor + bottleneck_factor + weekend_factor + mode_factor
                 recovery = random.uniform(0.35, 0.85) if accumulated_delay > 2.0 else 0.0
@@ -272,20 +272,18 @@ def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_se
     # 6. Generate Active Vehicle Tracking Positions (Explicitly Tagged SIMULATED & STATIC)
     now_ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for v in vehicles_list:
-        route_info = next((r for r in CHENNAI_ROUTES if r["route_id"] == v["route_id"]), CHENNAI_ROUTES[0])
+        route_info = next((r for r in TIRUNELVELI_ROUTES if r["route_id"] == v["route_id"]), TIRUNELVELI_ROUTES[0])
         stops = route_info["stops"]
         # Position vehicle deterministically along route stops
         stn_idx = random.randint(0, len(stops) - 1)
-        base_stn = station_lookup.get(stops[stn_idx], CHENNAI_STATIONS[0])
+        base_stn = station_lookup.get(stops[stn_idx], TIRUNELVELI_STATIONS[0])
         
         # Slight jitter simulating transit headway movement
         jitter_lat = random.uniform(-0.005, 0.005)
         jitter_lon = random.uniform(-0.005, 0.005)
 
         speed = 0.0 if random.random() < 0.2 else (
-            random.uniform(35.0, 65.0) if v["transport_mode"] == "Metro Rail" else (
-                random.uniform(40.0, 75.0) if v["transport_mode"] == "Suburban Rail" else random.uniform(15.0, 42.0)
-            )
+            random.uniform(40.0, 75.0) if v["transport_mode"] == "Superfast & Express Rail" else random.uniform(15.0, 42.0)
         )
 
         positions_list.append({
@@ -299,14 +297,14 @@ def generate_transit_data(num_days: int = 30, trips_per_day: int = 80, random_se
             "bearing": random.choice([0, 45, 90, 135, 180, 225, 270, 315]),
             "recorded_at": now_ts,
             "data_status": "SIMULATED",  # Explicitly marked SIMULATED as per requirements
-            "raw_source": "SRC-GTFS-RT-SIM",
+            "raw_source": "SRC-AIS140-SIM",
             "confidence_score": 0.95
         })
         pos_counter += 1
 
     df_positions = pd.DataFrame(positions_list)
-    df_sources.loc[df_sources["source_id"] == "SRC-GTFS-RT-SIM", "record_count"] = len(df_positions)
-    df_sources.loc[df_sources["source_id"] == "SRC-CUMTA-STATIC", "record_count"] = len(df_actual_times)
+    df_sources.loc[df_sources["source_id"] == "SRC-AIS140-SIM", "record_count"] = len(df_positions)
+    df_sources.loc[df_sources["source_id"] == "SRC-TNSTC-STATIC", "record_count"] = len(df_actual_times)
 
     if full_bundle:
         return df_operators, df_routes, df_stations, df_trips, df_actual_times, df_vehicles, df_positions, df_sources
@@ -323,7 +321,7 @@ def save_raw_datasets(df_routes, df_stations, df_trips, df_actual_times):
 
 
 if __name__ == "__main__":
-    print("Generating authentic Tamil Nadu / Chennai multimodal transit dataset...")
-    ops, routes, stations, trips, actual, vehicles, positions, sources = generate_transit_data(num_days=30, trips_per_day=80)
+    print("Generating authentic Tirunelveli multimodal transit dataset...")
+    ops, routes, stations, trips, actual, vehicles, positions, sources = generate_transit_data(num_days=30, trips_per_day=80, full_bundle=True)
     save_raw_datasets(routes, stations, trips, actual)
     print(f"Generated {len(ops)} operators, {len(routes)} routes, {len(stations)} stations, {len(trips)} trips, {len(actual)} arrival records, {len(positions)} vehicle positions.")

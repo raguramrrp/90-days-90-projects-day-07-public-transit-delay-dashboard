@@ -64,7 +64,6 @@ if not exist ".env" (
 :: 5. Create local directories
 if not exist "data\raw" mkdir "data\raw"
 if not exist "data\processed" mkdir "data\processed"
-if not exist "data\powerbi_export" mkdir "data\powerbi_export"
 if not exist "screenshots" mkdir "screenshots"
 
 :: 6. Seed database and run ETL
@@ -76,11 +75,6 @@ if %ERRORLEVEL% neq 0 (
     exit /b 1
 )
 echo [OK] Database seeded and initialized with transit observations.
-
-:: 7. Export Power BI Star-Schema Datasets
-echo [INFO] Generating Power BI dimensional models and DAX measures...
-.venv\Scripts\python.exe src\powerbi_export.py
-echo [OK] Power BI export datasets created.
 
 echo =====================================================================
 echo  [SUCCESS] Setup Completed! You can now start the application:
