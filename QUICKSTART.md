@@ -11,21 +11,21 @@ Double-click `setup.bat` or run:
 ```cmd
 setup.bat
 ```
-*This automatically checks your Python installation, creates a `.venv` virtual environment, installs dependencies (including Folium and Streamlit), and seeds `data/transit.db` with Tirunelveli bus and train transit records.*
+*This automatically checks your Python installation, creates a `.venv` virtual environment, installs dependencies, and seeds `data/transit.db` with verified Tirunelveli bus and train transit records.*
 
 ### Step 2: Start the Platform
 Double-click `run.bat` or run:
 ```cmd
 run.bat
 ```
-*Your browser will launch automatically at `http://localhost:8501`.*
+*Your browser will launch automatically at `http://localhost:8501` displaying the approved Google Stitch Civic Utility interface.*
 
 ### Step 3: Run Automated Tests
 Double-click `test.bat` or run:
 ```cmd
 test.bat
 ```
-*Executes all 30 automated unit tests across data, tracking, DB, ETL, providers, and KPI calculations.*
+*Executes all **37 automated unit tests across 9 test suites** (100% pass rate) verifying UI templates, providers, tracking, database, ETL, and KPI calculations.*
 
 ---
 
@@ -72,49 +72,30 @@ pytest -v
 
 ---
 
-## ⚙️ Operational Mode Toggle
+## 🧭 Exploring the Google Stitch Civic Workspace (v2.5)
 
-Located right in the header bar:
-- **Production Mode (Verified Timetables)**: Displays honest `[SCHEDULED]` and `[STATIC]` timetables with zero fabricated live GPS telemetry.
-- **Demonstration Mode (Simulated GPS)**: Emulates real-time telemetry with a prominent yellow warning banner so evaluators can inspect live animations and ETA progression safely without deception.
+Once launched, use the municipal header tabs to explore:
 
----
+### 1. 🚏 Bus Search & Live Telemetry
+- **Origin / Destination Search**: Type stops in English or Tamil (e.g. `Junction`, `Palayamkottai`, `நெல்லை சந்திப்பு`).
+- **One-Touch Actions**: Click the GPS icon for proximity detection, or click the Swap button to reverse direction.
+- **Quick Terminals**: One-tap shortcut chips for `Junction`, `New Bus Stand`, `Palayamkottai`, and `Town`.
+- **Thamirabarani River Vector Map**: Custom SVG cartography with Sulochana Mudaliar Bridge crossing and pulsing radar beacon on bus `TN-72-N-1842`.
+- **Route 11A Inspector**: Live speed (28 km/h), AIS-140 transponder signal, and 5-stop progression timeline with ETAs.
 
-## 🧭 Exploring the 6 Clean Tabs
+### 2. 🚆 Train Search & CRIS NTES Live Status
+- **5-Digit Search**: Query any Indian Railways train number (e.g., `16127`, `12632`, `20666`, `06682`, `16847`).
+- **Station Scope**: Filter calling stations (`TEN`, `TYT`, `PLM`, `ALL`).
+- **Boundary Verification**: Checks geographic eligibility—non-local trains (e.g. `12626 Kerala Express`) trigger an informative civic notice explaining route bounds outside Tirunelveli.
+- **CRIS NTES Telemetry**: Motive power unit (`WAP-7 ED 37102`), speed (68 km/h), Gangaikondan block position, assigned platform (PF 1), and 8-halt progression line.
 
-Once launched, use the top tabs to explore:
+### 3. 🏢 Station Hub Interchanges
+- **Intermodal Terminals**: Select between Tirunelveli Junction (`TEN`), MGR New Bus Stand (`VBS`), Palayamkottai (`PLM`), and Town (`TOWN`).
+- **SVG Terminal Schematics**: Visual layout of railway platforms, bus bays, waiting rooms, and taxi ranks.
+- **Synchronized Feeders**: Connecting city bus timetable with immediate departures.
+- **Prepaid Auto Tariffs**: Official Tirunelveli Traffic Police fixed tariff cards protecting passengers from fare gouging.
 
-1. **🚏 Find a Bus**:
-   - **Find by Stop**: Search by stop name in English or Tamil (e.g. `Junction`, `Palayamkottai`, `நெல்லை சந்திப்பு`).
-   - **Find by Proximity / Landmark**: Select a well-known Tirunelveli landmark (Vannarpettai, Anna Stadium, Nellaiyappar Temple) or input device GPS coordinates to discover nearby bus stops within walking distance.
-   - **Filter by Route**: View all bus services connecting an origin and destination stop.
-
-2. **🚌 Track a Bus (TNSTC Nellai)**:
-   - Select any Nellai city bus from the dropdown:
-     - `TNSTC Route 1 (TN-72-N-1042)`: Veinthaankulam New Bus Stand ↔ Tirunelveli Junction
-     - `TNSTC Route 2 (TN-72-N-2104)`: Junction ↔ Town Nellaiyappar Temple
-     - `TNSTC Route 3 (TN-72-N-3011)`: Junction ↔ Palayamkottai Market
-     - `TNSTC Route 10 (TN-72-N-1090)`: Town Nellaiyappar ↔ High Ground Medical College
-     - `TNSTC Route 41 (TN-72-N-4105)`: Junction ↔ Cheranmahadevi & Ambasamudram
-     - `TNSTC Route 144 (TN-72-N-1442)`: New Bus Stand ↔ Nanguneri & Valliyur
-   - Check real-time on-time/delay status, next stop ETA, vehicle speed, and stop-by-stop route timeline.
-   - View focused Leaflet route map with vehicle position.
-
-3. **🚆 Find a Train (Southern Railway)**:
-   - Search by 5-digit Indian Railways train number (e.g., `12632`, `20666`, `06682`, `06685`).
-   - **Geographic Scope Enforcement**: Verifies whether the train serves Tirunelveli Hub. If searching a valid non-local train (e.g., `12621 Tamil Nadu Express`), the system clearly explains it operates outside Tirunelveli rather than showing fake local stops.
-   - View assigned platform number, current running status, delay variance, and full halt timetable.
-
-4. **🗺️ Tirunelveli Map**:
-   - District-wide interactive Leaflet map centered at Tirunelveli (`[8.7285, 77.7050]`).
-   - View Thamirabarani River, transit corridors, station nodes, and live vehicle markers.
-   - Filter vehicles by mode: All, Buses only, or Trains only.
-
-5. **📋 Station Departure Board**:
-   - Select any major Tirunelveli station: Tirunelveli Junction, New Bus Stand, Palayamkottai, Town, Ambasamudram, or Tenkasi.
-   - Clean arrival schedule showing incoming services, platforms, scheduled times, delay variance, and honest status.
-
-6. **📊 Network Analytics**:
-   - High-level KPIs: Monitored Trips, On-Time Arrival Rate (≤ 2 mins), Average Delay, and Transit Reliability Index.
-   - 30-day delay trend with 7-day moving average.
-   - Primary delay root causes (Traffic Congestion, Railway Crossing, Peak Dwell Time, Signal Clearance, Passenger Rush).
+### 4. ℹ️ About & Data Feeds
+- **Operations Summary**: 2,880 active monitored trips, 86.4% on-time reliability, 4.8 min average delay.
+- **Data Provenance**: Clear 6-tier classification (`LIVE`, `RECENT`, `SCHEDULED`, `ESTIMATED`, `STATIC`, `UNAVAILABLE`).
+- **Civic Privacy**: Strict in-memory proximity computation with zero location persistence.

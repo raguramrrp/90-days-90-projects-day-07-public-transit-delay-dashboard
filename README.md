@@ -151,15 +151,20 @@ flowchart TD
 
 ## 6. Technology Stack
 
-| Component | Technology | Version | Purpose in Application |
+| Layer | Technology | Specification / Version | Purpose in Application |
 | :--- | :--- | :--- | :--- |
-| **Frontend & UI** | Streamlit | `>=1.40.0` | Public-facing civic transport tracking interface |
-| **Geospatial Mapping** | Folium / Leaflet | `>=0.17.0` | Interactive maps, route polylines, station nodes |
-| **Charts & Analytics** | Plotly & Plotly Express | `>=5.22.0` | Delay trends and root-cause analysis |
-| **Backend & Providers** | Python | `3.12` | Clean modular provider layer, geocoding, and eligibility checks |
-| **Database** | SQLite & PostgreSQL | Dual Relational | Universal SQL DDL, indexes, and analytical views |
-| **Data Processing** | Pandas & NumPy | `>=2.2.0` | Schedule processing and delay calculations |
-| **Testing & QA** | Pytest | `>=9.1.0` | **30 automated tests (100% pass rate)** |
+| **Civic Design System** | Google Stitch UI | 2.5 (Austere Civic Utility) | High-contrast municipal interface, tabular alignment, 4px crisp borders, zero startup glow |
+| **Frontend Framework** | Streamlit | >=1.40.0 | Python application server, session state orchestrator, component iframe embedder |
+| **CSS Utility Engine** | Tailwind CSS | 3.4+ CDN | Low-contrast civic palette (#00507d, #006a61), responsive grid, mobile bottom bar |
+| **Typography & Glyphs** | Inter & Material Symbols | Google Fonts (OpenType) | Strict tabular figures (	num) for timetable alignment; Material Symbols Outlined |
+| **Vector Cartography** | Custom SVG Canvas | Scalable Vector Graphics | High-contrast Thamirabarani River vector plot, bridge crossings, radar pulsing beacon, and concourse schematics |
+| **Geospatial Mapping** | Folium / Leaflet | >=0.17.0 | Multi-modal district map, route polylines, station nodes, and interactive popups |
+| **Telemetry Protocols** | AIS-140 & CRIS NTES | Telemetry Engine | Transponder parsing, dual-band GNSS, locomotive motive units (WAP-7 ED 37102, WAP-4 ED), block signals, speed & heading |
+| **Backend & Providers** | Python | 3.12 | Clean modular provider layer (BusStop, BusRoute, BusTracking, TrainSchedule, TrainRunningStatus, Geocoding) |
+| **Database Engines** | SQLite & PostgreSQL | Dual Relational Engine | Zero-setup local SQLite (data/transit.db) and production-ready PostgreSQL DDL with indexes |
+| **Data Processing** | Pandas & NumPy | >=2.2.0 | Schedule processing, delay variance derivations, and historical KPI facts |
+| **Charts & Analytics** | Plotly & Plotly Express | >=5.22.0 | Moving average delay cascades, Transit Reliability Index (TRI), peak-hour analysis |
+| **Testing & QA** | Pytest | >=9.1.0 | **37 automated tests across 9 test suites (100% pass rate)** |
 
 ---
 

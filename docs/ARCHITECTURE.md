@@ -2,14 +2,15 @@
 
 ## 1. Architectural Blueprint
 
-The **Tirunelveli Public Transport Intelligence Platform (Nellai Transit)** is built on a modular, decoupled architecture consisting of Data Ingestion & Governance, Relational Storage, a Dedicated Provider Layer, Analytical Modeling, Geospatial Mapping, and a 6-Tab Human-Friendly Presentation Layer.
+The **Tirunelveli Public Transport Intelligence Platform (Nellai Transit)** is built on a modular, decoupled architecture consisting of Data Ingestion & Governance, Dual Relational Storage, a Dedicated Provider Layer, Analytical Modeling, Geospatial & Vector Mapping, and the **Google Stitch Civic Utility Presentation Layer (v2.5)**.
 
 ```mermaid
 flowchart TD
     subgraph Data_Layer ["Data Ingestion, Telemetry & Simulation"]
-        TNSTC["TNSTC Open Catalog<br/>(Bus Timetables & Stages)"] --> ETL
-        SR["Southern Railway Timetables<br/>(Nellai Hub Express/Passenger)"] --> ETL
-        SIM["Active Telemetry Engine<br/>(src/tracking.py)"] -->|Vehicle Stream| POS["Vehicle Positions<br/>(Live/Demo Telemetry)"]
+        TNSTC["TNSTC Open Catalog<br/>(Bus Timetables, Routes & Fares)"] --> ETL
+        SR["Southern Railway & CRIS NTES<br/>(Nellai Hub Express/Special Trains)"] --> ETL
+        AIS["AIS-140 Telemetry Parser<br/>(GPS, Speed, Heading, Transponders)"] --> TRACK["Tracking Engine (src/tracking.py)"]
+        TRACK -->|Vehicle Stream| POS["Vehicle Positions<br/>(Live / Scheduled Telemetry)"]
         GEN["Transit Generator<br/>(src/generator.py)"] --> RAW["Raw Datasets<br/>(data/raw/)"]
         RAW --> ETL["TransitETLPipeline (src/etl.py)"]
     end
@@ -29,27 +30,18 @@ flowchart TD
         DB --> BRP["BusRouteProvider<br/>(Route eligibility, corridor index)"]
         DB --> BTP["BusTrackingProvider<br/>(Honest freshness, delay, timeline)"]
         DB --> TSP["TrainScheduleProvider<br/>(5-digit number, local verification)"]
-        DB --> TRSP["TrainRunningStatusProvider<br/>(Platform, status, halt table)"]
+        DB --> TRSP["TrainRunningStatusProvider<br/>(CRIS NTES status, motive power, halts)"]
         GEO["GeocodingProvider<br/>(20+ Tirunelveli landmarks)"] --> BSP
     end
 
-    subgraph Analytics_Layer ["Analytics & Mapping Engines"]
-        DB --> ANALYTICS["Analytics Engine (src/analytics.py)<br/>- Multimodal Aggregations<br/>- TRI Formulation<br/>- Multi-Filter Slicing"]
-        DB --> MAP["Map Builder (src/map_builder.py)<br/>- Folium / Leaflet Mapping<br/>- Route Polylines & Station Circles<br/>- Vehicle Markers & Popups"]
-        POS --> MAP
-    end
-
-    subgraph Presentation_Layer ["Streamlit 6-Tab Human-Friendly Platform"]
-        Provider_Layer --> APP["app.py (Streamlit Workspace)"]
-        ANALYTICS --> APP
-        MAP --> APP
+    subgraph Presentation_Layer ["Google Stitch Civic Utility UI (v2.5)"]
+        Provider_Layer --> APP["Streamlit Host (app.py)"]
+        APP --> STITCH["src/stitch_template.html<br/>(Tailwind CSS 3.4+, Inter tnum, Material Symbols)"]
         
-        APP --> T1["🚏 Find a Bus"]
-        APP --> T2["🚌 Track a Bus"]
-        APP --> T3["🚆 Find a Train"]
-        APP --> T4["🗺️ Tirunelveli Map"]
-        APP --> T5["📋 Station Departure Board"]
-        APP --> T6["📊 Network Analytics"]
+        STITCH --> V1["🚏 Bus Search & Telemetry<br/>- Origin/Destination GPS & Swap<br/>- Thamirabarani River SVG Canvas<br/>- Route 11A Radar Vehicle Inspector"]
+        STITCH --> V2["🚆 Train Search & Status<br/>- CRIS NTES 5-digit Lookup<br/>- WAP-7 ED 37102 Motive Unit<br/>- 8-Halt Progression Line"]
+        STITCH --> V3["🏢 Station Hub Interchanges<br/>- TEN, VBS, PLM, TOWN Hubs<br/>- SVG Concourse & Bus Bays<br/>- Prepaid Auto Fixed Tariffs"]
+        STITCH --> V4["ℹ️ About & Data Feeds<br/>- Operational KPI Scorecards<br/>- Data Provenance Hierarchy<br/>- Civic Privacy Policy"]
     end
 ```
 
@@ -65,12 +57,17 @@ flowchart TD
 - **BusStopProvider**: Handles bus stop lookup, English and Tamil fuzzy searches, and Haversine distance computations (`find_nearest_stops`) to discover nearby stops from GPS coordinates or landmarks.
 - **BusRouteProvider**: Enforces strict geographic eligibility (`is_route_eligible`), ensuring only routes serving verified Tirunelveli stops are returned.
 - **BusTrackingProvider**: Provides honest real-time status and stop-by-stop timelines. In Production mode, it classifies data strictly as `SCHEDULED` or `STATIC` to prevent misleading simulated positions.
-- **TrainScheduleProvider & TrainRunningStatusProvider**: Validates 5-digit Indian Railways train numbers, verifies local Tirunelveli eligibility, and generates platform numbers, current status, and full halt timetables.
+- **TrainScheduleProvider & TrainRunningStatusProvider**: Validates 5-digit Indian Railways train numbers, verifies local Tirunelveli eligibility, and generates platform numbers, current status, locomotive motive power (`WAP-7 ED 37102`, `WAP-4 ED`), block signals, speed, and full halt timetables.
 - **GeocodingProvider**: In-memory catalog of prominent Tirunelveli landmarks (Vannarpettai, Anna Stadium, Nellaiyappar Temple, High Ground Medical College) for privacy-preserving offline proximity resolution without third-party API exposure.
 
-### Vehicle Tracking & Live Telemetry (`src/tracking.py` & `src/map_builder.py`)
-- **Tracking Engine**: Manages vehicle location retrieval with authentic Tirunelveli bus numbers (`TN-72-N-xxxx`) and Southern Railway train numbers (*12632 Nellai Express*, *20666 Vande Bharat*, *06682 Tiruchendur Special*).
-- **Leaflet / Folium Map Builder**: Renders interactive map layers with custom operator styling (TNSTC amber, Southern Railway red/green), station popups, and vehicle markers.
+### Google Stitch Civic Utility UI (`src/stitch_template.html` & `app.py`)
+- **Austere Civic Utility Design System**: Implements the approved Google Stitch aesthetic (`stitch_tirunelveli_transit_tracker/`):
+  - **Color Palette**: Municipal Slate (`#00507d`), Pine Teal (`#006a61`), Amber Status (`#8d4f00`), Critical Red (`#ba1a1a`), and Low-Contrast Surface Containers (`#f0f4f7`, `#eaeff2`).
+  - **Typography**: Inter font with OpenType tabular figures (`tnum`) for timetable digit alignment; Material Symbols Outlined icons.
+  - **2-Column Split Workspace**: 5-column left panel for search controls and route cards; 7-column right panel for vector maps and telemetry inspectors.
+  - **Custom Vector Cartography**: Responsive SVG canvas depicting the Thamirabarani River path, Sulochana Mudaliar Bridge, radar pulsing vehicle beacon, and terminal concourse schematics.
+  - **Station Hubs & Auto Tariffs**: Detailed intermodal interchange explorer with connecting city buses, rail departures, and Tirunelveli Traffic Police prepaid auto fixed tariffs.
+  - **Embedded Streamlit Integration**: Seamlessly hosted via `streamlit.components.v1.html(height=1450, scrolling=True)` with Streamlit default chrome suppressed.
 
 ### Database Layer (`src/db.py` & `sql/`)
 - Relational schema enforcing primary keys and foreign key constraints across 9 tables:
@@ -89,3 +86,22 @@ flowchart TD
 - Computes fleet-wide and operator-specific KPIs.
 - Filters datasets dynamically across user-selected routes, date windows, time periods, and service regimes.
 - Computes Transit Reliability Index (TRI) using the standardized weighted formulation.
+
+---
+
+## 3. Technology Stack Reference
+
+| Component | Technology | Specification / Version | Role |
+| :--- | :--- | :--- | :--- |
+| **Civic Design System** | Google Stitch UI | v2.5 (Austere Civic Utility) | High-contrast municipal interface, tabular alignment, 4px crisp borders |
+| **Presentation Host** | Streamlit | >=1.40.0 | Python session state, iframe orchestrator, embedded web view |
+| **Styling Engine** | Tailwind CSS | 3.4+ CDN | Low-contrast civic palette, 12-column grid, responsive mobile navigation |
+| **Typography & Icons** | Inter & Material Symbols | Google Fonts | Tabular figures (`tnum`) for vertical number alignment; Material Symbols Outlined |
+| **Vector Cartography** | Scalable Vector Graphics | W3C SVG Standard | Thamirabarani River plot, bridge crossing, radar beacon, and concourse schematics |
+| **Geospatial Mapping** | Folium / Leaflet | >=0.17.0 | District overview maps, route polylines, station nodes |
+| **Telemetry Protocols** | AIS-140 & CRIS NTES | Telemetry Engine | Transponder parsing, locomotive motive power, block signals, speed & heading |
+| **Backend & Providers** | Python | 3.12 | Modular provider layer (BusStop, BusRoute, BusTracking, TrainSchedule, etc.) |
+| **Database Engines** | SQLite & PostgreSQL | Dual Relational Engine | Zero-setup local SQLite (`data/transit.db`) and production PostgreSQL DDL |
+| **Data Processing** | Pandas & NumPy | >=2.2.0 | Schedule manipulation, delay variance calculations, and KPI facts |
+| **Charts & Analytics** | Plotly & Plotly Express | >=5.22.0 | Trend analysis, delay cascades, and Transit Reliability Index (TRI) |
+| **Testing & QA** | Pytest | >=9.1.0 | **37 automated tests across 9 test suites (100% pass rate)** |

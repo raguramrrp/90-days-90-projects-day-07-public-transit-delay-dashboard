@@ -2,6 +2,10 @@
 
 ## 1. Technical Choices
 
+### Google Stitch Civic Design System Integration (v2.5)
+- **Decision**: Upgrade from multi-tab Streamlit widget cascades to the approved **Google Stitch "Austere Civic Utility"** single-page architecture (`src/stitch_template.html`), hosted cleanly within Streamlit via `components.html(height=1450, scrolling=True)`.
+- **Rationale**: Standard AI-generated web apps rely heavily on generic 9999px pill buttons, high-intensity neon glows, and cluttered sidebars that feel disconnected from authentic public transit utilities. The Google Stitch Civic Design System uses strict 4px border geometry, tabular numeric alignment (`tnum`), crisp municipal color tokens (`#00507d`, `#006a61`), custom SVG vector cartography for the Thamirabarani River, and intermodal concourse schematics that resemble genuine municipal transport portals.
+
 ### Dual-Database Architecture (SQLite + PostgreSQL)
 - **Decision**: Provide native SQLite support (`data/transit.db`) as the default local engine while supplying complete PostgreSQL schemas (`sql/postgres_setup.sql`) and SQLAlchemy multi-dialect connection management.
 - **Rationale**: For final-year student evaluation and GitHub recruiters, requiring a pre-installed, running PostgreSQL daemon on Windows adds immediate friction and potential setup failures. SQLite allows a 1-click Windows demonstration (`setup.bat` -> `run.bat`) while proving enterprise PostgreSQL competency through schema scripts, views, and index optimization.
@@ -11,9 +15,9 @@
   $$\text{TRI} = \max\left(0, \min\left(100, (\text{On-Time \%} \times 0.70) + ((100 - \text{Severe \%}) \times 0.30) - (\max(0, \text{Avg Delay}) \times 1.5)\right)\right)$$
 - **Rationale**: Measuring solely on-time rate overlooks the severity of catastrophic delays (e.g. 45-minute signal failures), while measuring solely average delay masks high-volume punctuality. Combining on-time rate, severe delay avoidance, and an average delay penalty yields a single, intuitive 0-100 score aligned with transit industry best practices.
 
-### Streamlit + Plotly Frontend Choice
-- **Decision**: Develop an interactive Streamlit application with customized CSS and Plotly charts rather than a static reporting notebook or complex React front-end.
-- **Rationale**: Allows rapid delivery of dynamic filtering, high-frame-rate cross-filtering, interactive bubble maps, and instant CSV/Power BI exports with zero npm/node dependency overhead.
+### Honest Telemetry Provenance Hierarchy
+- **Decision**: Disallow synthetic live GPS vehicle movement in production mode. All arrival estimates are rigorously classified as `LIVE`, `RECENT`, `SCHEDULED`, `ESTIMATED`, `STATIC`, or `UNAVAILABLE`.
+- **Rationale**: Many public transit apps mislead commuters by showing synthetic dots moving along roads even when real transponder feeds are offline. By strictly distinguishing AIS-140/CRIS NTES telemetry from static timetables, the platform maintains institutional integrity and passenger trust.
 
 ### Realistic Stochastic Delay Modeling
 - **Decision**: Rather than using uniform random numbers, `src/generator.py` uses:
