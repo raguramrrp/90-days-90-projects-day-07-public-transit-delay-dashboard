@@ -1,4 +1,4 @@
-"""Test suite for KPI thresholds, delay classification, and Reliability Score."""
+"""KPI thresholds, delay classification, and Transit Reliability Index (TRI) tests for Tirunelveli fleet."""
 
 import pytest
 from src.generator import classify_delay_status, determine_time_period

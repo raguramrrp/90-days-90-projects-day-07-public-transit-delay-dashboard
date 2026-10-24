@@ -1,1 +1,1 @@
-"""Unit and integration test suite for Public Transit Delay Analytics Dashboard."""
+"""Automated test suite for Tirunelveli Public Transport Intelligence Platform (Nellai Transit)."""

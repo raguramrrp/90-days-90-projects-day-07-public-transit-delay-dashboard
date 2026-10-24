@@ -1,4 +1,4 @@
-"""Test suite for synthetic transit dataset generation."""
+"""Synthetic and realistic dataset generation tests for Tirunelveli multimodal transit network."""
 
 import pandas as pd
 from src.generator import generate_transit_data, MASTER_ROUTES, MASTER_STATIONS

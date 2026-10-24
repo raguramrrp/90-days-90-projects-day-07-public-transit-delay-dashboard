@@ -1,4 +1,4 @@
-"""Test suite for analytical aggregations and filtering."""
+"""Analytical aggregations and filtering tests for Tirunelveli transit data."""
 
 import pandas as pd
 from datetime import date

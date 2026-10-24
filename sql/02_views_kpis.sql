@@ -1,5 +1,6 @@
 -- ============================================================================
--- Public Transit Delay Analytics Dashboard - Analytical Views & KPI Metrics
+-- Tirunelveli Public Transport Intelligence Platform (Nellai Transit)
+-- Analytical Views & KPI Metrics (v2.5)
 -- Compatible with PostgreSQL and SQLite
 -- ============================================================================
 
@@ -48,53 +49,57 @@ SELECT
     s.station_id,
     s.station_code,
     s.station_name,
-    s.zone_id,
     s.latitude,
     s.longitude,
+    s.zone_id,
     s.is_transfer_station,
     COUNT(a.record_id) AS total_arrivals,
     ROUND(AVG(a.delay_minutes), 2) AS avg_delay_minutes,
-    ROUND(AVG(CASE WHEN a.is_peak_hour = 1 THEN a.delay_minutes ELSE NULL END), 2) AS peak_avg_delay_minutes,
-    SUM(CASE WHEN a.status = 'Severe Delay' THEN 1 ELSE 0 END) AS severe_delays,
+    MAX(a.delay_minutes) AS max_delay_minutes,
+    ROUND(
+        100.0 * SUM(CASE WHEN a.status = 'Severe Delay' THEN 1 ELSE 0 END) / COUNT(a.record_id),
+        2
+    ) AS severe_delay_rate,
     ROUND(
         100.0 * SUM(CASE WHEN a.status IN ('On-Time', 'Early') THEN 1 ELSE 0 END) / COUNT(a.record_id),
         2
-    ) AS on_time_percentage
+    ) AS on_time_rate,
+    -- Chronic Bottleneck Index: weighted average delay and severe rate
+    ROUND(
+        (AVG(CASE WHEN a.delay_minutes > 0 THEN a.delay_minutes ELSE 0 END) * 0.6) 
+        + ((100.0 * SUM(CASE WHEN a.status = 'Severe Delay' THEN 1 ELSE 0 END) / COUNT(a.record_id)) * 0.4),
+        2
+    ) AS bottleneck_score
 FROM stations s
 JOIN actual_times a ON s.station_id = a.station_id
-GROUP BY s.station_id, s.station_code, s.station_name, s.zone_id, s.latitude, s.longitude, s.is_transfer_station;
+GROUP BY s.station_id, s.station_code, s.station_name, s.latitude, s.longitude, s.zone_id, s.is_transfer_station;
 
--- 3. Peak Hour vs Off-Peak Performance View
+-- 3. Peak-Hour Congestion Analysis View
 DROP VIEW IF EXISTS v_peak_hour_performance;
 CREATE VIEW v_peak_hour_performance AS
 SELECT 
+    a.hour_of_day,
     a.time_period,
     a.is_peak_hour,
-    a.is_weekend,
-    COUNT(a.record_id) AS total_observations,
+    COUNT(a.record_id) AS observation_count,
     ROUND(AVG(a.delay_minutes), 2) AS avg_delay_minutes,
-    ROUND(
-        100.0 * SUM(CASE WHEN a.status IN ('On-Time', 'Early') THEN 1 ELSE 0 END) / COUNT(a.record_id),
-        2
-    ) AS on_time_percentage,
-    SUM(CASE WHEN a.status = 'Severe Delay' THEN 1 ELSE 0 END) AS severe_delays
+    ROUND(100.0 * SUM(CASE WHEN a.status IN ('On-Time', 'Early') THEN 1 ELSE 0 END) / COUNT(a.record_id), 2) AS on_time_rate,
+    ROUND(100.0 * SUM(CASE WHEN a.status = 'Severe Delay' THEN 1 ELSE 0 END) / COUNT(a.record_id), 2) AS severe_delay_rate
 FROM actual_times a
-GROUP BY a.time_period, a.is_peak_hour, a.is_weekend;
+GROUP BY a.hour_of_day, a.time_period, a.is_peak_hour;
 
--- 4. Daily Fleet Reliability Trend View
+-- 4. Daily Reliability & Trends View
 DROP VIEW IF EXISTS v_daily_reliability;
 CREATE VIEW v_daily_reliability AS
 SELECT 
     a.recorded_date,
     a.day_of_week,
     a.is_weekend,
-    COUNT(DISTINCT a.trip_id) AS total_trips,
-    COUNT(a.record_id) AS total_stops_serviced,
+    COUNT(DISTINCT a.trip_id) AS trips_operated,
+    COUNT(a.record_id) AS station_stops,
     ROUND(AVG(a.delay_minutes), 2) AS avg_delay_minutes,
-    ROUND(
-        100.0 * SUM(CASE WHEN a.status IN ('On-Time', 'Early') THEN 1 ELSE 0 END) / COUNT(a.record_id),
-        2
-    ) AS on_time_percentage,
+    ROUND(100.0 * SUM(CASE WHEN a.status IN ('On-Time', 'Early') THEN 1 ELSE 0 END) / COUNT(a.record_id), 2) AS on_time_percentage,
+    ROUND(100.0 * SUM(CASE WHEN a.status = 'Severe Delay' THEN 1 ELSE 0 END) / COUNT(a.record_id), 2) AS severe_percentage,
     ROUND(
         MAX(0.0, MIN(100.0, 
             (100.0 * SUM(CASE WHEN a.status IN ('On-Time', 'Early') THEN 1 ELSE 0 END) / COUNT(a.record_id)) * 0.70
@@ -102,6 +107,6 @@ SELECT
             - (AVG(CASE WHEN a.delay_minutes > 0 THEN a.delay_minutes ELSE 0 END) * 1.5)
         )),
         1
-    ) AS reliability_score
+    ) AS daily_tri_score
 FROM actual_times a
 GROUP BY a.recorded_date, a.day_of_week, a.is_weekend;

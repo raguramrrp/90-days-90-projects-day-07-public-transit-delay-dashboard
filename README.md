@@ -96,26 +96,6 @@ The user interface implements the approved **Google Stitch "Austere Civic Utilit
 ![Mobile Civic Tracking View](screenshots/stitch_mobile_view.png)
 *High-contrast mobile interface with quick terminals, service tier segmented controls, and fixed bottom navigation bar.*
 
-### Command Center & Executive Overview
-![Command Center](screenshots/dashboard_overview.png)
-*Executive overview displaying monitored trips, on-time arrival rate, fleet average delay, chronic bottlenecks count, 30-day moving average trend line, modal breakdown, and operator SLA scorecard.*
-
-### Multimodal Live Tracking Map (Leaflet / Folium)
-![Live Tracking Map](screenshots/live_tracking_map.png)
-*Geospatial Leaflet map displaying Tirunelveli transit corridors, station interchanges, live vehicles, and popup telemetry inspection.*
-
-### Route Performance & Stop-by-Stop Delay Cascades
-![Route Analysis](screenshots/route_analysis.png)
-*Ranked route performance league table, Transit Reliability Index (TRI) comparison bar chart, and stop-by-stop delay cascading profile for Route 41 (Junction <-> Ambasamudram).*
-
-### Station Bottlenecks & Chronic Congestion Hotspots
-![Station Bottlenecks](screenshots/station_bottlenecks.png)
-*Geographic delay bubble visualization, top chronic bottleneck stations, and multimodal transfer connectivity impact table.*
-
-### Peak-Hour Congestion Dynamics & Surge Analysis
-![Peak Hours & Congestion](screenshots/peak_hours_surge.png)
-*24-hour fleet congestion progression with shaded Morning/Evening peak bands, peak vs. off-peak comparative metrics, and Day-of-Week vs. Hour congestion heatmap matrix.*
-
 ---
 
 ## 5. System Architecture & Modular Provider Layer

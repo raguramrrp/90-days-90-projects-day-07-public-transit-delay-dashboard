@@ -1,4 +1,4 @@
-"""Test suite for database initialization, queries, and health checks."""
+"""Database schema initialization and SQL operation tests for Tirunelveli transit repository."""
 
 import pytest
 import pandas as pd
@@ -23,7 +23,7 @@ def test_execute_query_and_non_query():
     # Insert test route
     execute_non_query(
         "INSERT INTO routes (route_id, route_short_name, route_long_name, route_type) VALUES (:rid, :sname, :lname, :rtype)",
-        {"rid": "TEST-RT", "sname": "Test Line", "lname": "Test Long Name", "rtype": "Subway"}
+        {"rid": "TEST-RT", "sname": "Test Line", "lname": "Test Long Name", "rtype": "Bus"}
     )
 
     df = execute_query("SELECT * FROM routes WHERE route_id = 'TEST-RT'")

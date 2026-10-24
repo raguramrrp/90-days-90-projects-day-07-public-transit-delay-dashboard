@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "public-transit-delay-dashboard"
-version = "1.0.0"
-description = "Public Transit Delay Analytics Dashboard - Route reliability, station bottlenecks, and peak-hour delay analytics"
+name = "tirunelveli-transit-tracker"
+version = "2.5.0"
+description = "Tirunelveli Public Transport Intelligence Platform (Nellai Transit) - Google Stitch Civic Utility UI v2.5"
 authors = [
     { name = "raguramrrp", email = "raguramrrp@gmail.com" }
 ]
@@ -13,10 +13,11 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 dependencies = [
-    "streamlit>=1.35.0",
+    "streamlit>=1.40.0",
     "pandas>=2.2.0",
     "numpy>=1.26.0",
     "plotly>=5.22.0",
+    "folium>=0.17.0",
     "sqlalchemy>=2.0.0",
     "python-dotenv>=1.0.1",
     "openpyxl>=3.1.5",

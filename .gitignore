@@ -1,3 +1,8 @@
+# ============================================================================
+# Tirunelveli Public Transport Intelligence Platform (Nellai Transit)
+# Git Ignore Configuration
+# ============================================================================
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -30,7 +35,7 @@ venv/
 ENV/
 env/
 
-# IDE files
+# IDE & Editor files
 .vscode/
 .idea/
 *.swp
@@ -44,7 +49,8 @@ env/
 .coverage
 htmlcov/
 
-# Local databases (keep SQLite db out of git)
+# Local databases & runtime state (keep SQLite db out of git)
 data/transit.db
 *.sqlite3
 *.db-journal
+data/powerbi_export/

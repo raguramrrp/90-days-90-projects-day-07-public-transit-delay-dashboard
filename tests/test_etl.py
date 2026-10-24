@@ -1,4 +1,4 @@
-"""Test suite for ETL pipeline execution and transformations."""
+"""ETL data extraction, coordinate validation, and loading tests for Tirunelveli transit pipeline."""
 
 import pandas as pd
 from src.etl import TransitETLPipeline
